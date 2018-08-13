@@ -6,7 +6,7 @@ import HomePage from 'containers/HomePage'
 class App extends React.Component {
   state = {
     response: ''
-  };
+  }
 
   componentDidMount() {
     this.callApi()
@@ -20,12 +20,12 @@ class App extends React.Component {
 
     if (response.status !== 200) throw Error(body.message)
     return body
-  };
+  }
 
   render() {
     return (
       <div className="App">
-        <HomePage/>
+        <HomePage />
       </div>
     )
   }
