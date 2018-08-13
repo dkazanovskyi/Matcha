@@ -1,11 +1,9 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import logo from './logo.svg';
-import Button from 'antd/lib/button';
-import './App.css';
-import HomePage from './Containers/HomePage';
-import 'antd/dist/antd.css';
-class App extends Component {
+import React from 'react'
+import './App.css'
+import 'antd/dist/antd.css'
+import HomePage from 'containers/HomePage'
+
+class App extends React.Component {
   state = {
     response: ''
   };
@@ -13,16 +11,15 @@ class App extends Component {
   componentDidMount() {
     this.callApi()
       .then(res => this.setState({ response: res.express }))
-      .catch(err => console.log(err));
+      .catch(err => err)
   }
 
   callApi = async () => {
-    const response = await fetch('/api/hello');
-    const body = await response.json();
+    const response = await fetch('/api/hello')
+    const body = await response.json()
 
-    if (response.status !== 200) throw Error(body.message);
-
-    return body;
+    if (response.status !== 200) throw Error(body.message)
+    return body
   };
 
   render() {
@@ -30,8 +27,8 @@ class App extends Component {
       <div className="App">
         <HomePage/>
       </div>
-    );
+    )
   }
 }
 
-export default App;
+export default App

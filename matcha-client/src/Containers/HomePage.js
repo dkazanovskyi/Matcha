@@ -1,8 +1,7 @@
-import React, { Component } from "react";
-import { Layout, Menu, Breadcrumb, Icon } from "antd";
-const { Header, Content, Footer, Sider } = Layout;
-
-const SubMenu = Menu.SubMenu;
+import React, { Component } from "react"
+import { Layout, Menu, Breadcrumb, Icon } from "antd"
+const { Header, Content, Footer, Sider } = Layout
+const SubMenu = Menu.SubMenu
 
 class HomePage extends Component {
   state = {};
@@ -49,8 +48,8 @@ class HomePage extends Component {
           </Menu>
         </Sider>
       </Layout>
-    );
+    )
   }
 }
 
-export default HomePage;
+export default HomePage

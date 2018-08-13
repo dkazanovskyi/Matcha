@@ -1,19 +1,23 @@
 module.exports = {
     "extends": [
-        "eslint:recommended",
-        "plugin:react/recommended"
+        "react-app",
+        "prettier",
     ],
-    "parser": "babel-eslint",
-    "rules": {
-        "prop-types": [1],
-        "react/boolean-prop-naming": true
+    "env": {
+        "browser": true,
+        "commonjs": true,
+        "node": true,
+        "es6": true
     },
-    "plugins": [
-        "react"
-    ],
-    "parserOptions": {
-        "ecmaFeatures": {
-          "jsx": true
-        }
-    }
+    "rules": {
+        "jsx-quotes": [1, 'prefer-double'],
+        "no-console": 2,
+        "CamelCase": {
+            "properties": "always",
+            "ignoreDestructuring": true
+        },
+        "no-extra-semi": 2,
+        "semi": [2, "never"]
+    },
+    "plugins": ["prettier"]
 };
