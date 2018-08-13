@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import logo from './logo.svg';
 import Button from 'antd/lib/button';
 import './App.css';
@@ -28,7 +29,7 @@ class App extends Component {
       <div className="App">
         <header className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
+          <h1 className="App-title">Welcome to React!</h1>
         </header>
         <p className="App-intro">{this.state.response}</p>
       </div>
