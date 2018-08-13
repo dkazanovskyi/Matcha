@@ -1,5 +1,8 @@
 module.exports = {
-    "extends": ["plugin:react/recommended"],
+    "extends": [
+        "eslint:recommended",
+        "plugin:react/recommended"
+    ],
     "parser": "babel-eslint",
     "rules": {
         "prop-types": [1],
