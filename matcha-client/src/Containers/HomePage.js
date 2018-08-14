@@ -1,17 +1,16 @@
-import React, { Component } from "react"
-import { Layout, Menu, Breadcrumb, Icon } from "antd"
-const { Header, Content, Footer, Sider } = Layout
+import React, { Component } from 'react'
+import { Layout, Menu, Icon } from 'antd'
+const { Sider } = Layout
 const SubMenu = Menu.SubMenu
 
 class HomePage extends Component {
-  state = {};
+  state = {}
   render() {
     return (
-      <Layout style={{ minHeight: "100vh" }}>
-        <Sider
-        >
+      <Layout style={{ minHeight: '100vh' }}>
+        <Sider>
           <div className="logo" />
-          <Menu theme="dark" defaultSelectedKeys={["1"]} mode="inline">
+          <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline">
             <Menu.Item key="1">
               <Icon type="pie-chart" />
               <span>Option 1</span>
