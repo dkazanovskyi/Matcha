@@ -12,14 +12,18 @@
     "react-router-dom": "^4.3.1",
     "react-scripts": "1.1.4",
     "redux": "^4.0.0",
-    "redux-saga": "^0.16.0"
+    "redux-saga": "^0.16.0",
+    "express": "^4.16.2"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
-    "precommit": "lint-staged"
+    "precommit": "lint-staged",
+    "client": "yarn start",
+    "server": "nodemon server/server.js",
+    "dev": "concurrently -k --kill-others-on-fail \"yarn server\" \"yarn client\""
   },
   "proxy": "http://localhost:5000/",
   "devDependencies": {
@@ -31,7 +35,9 @@
     "husky": "^0.14.3",
     "lint-staged": "^7.2.2",
     "prettier": "^1.14.2",
-    "prop-types": "^15.6.2"
+    "prop-types": "^15.6.2",
+    "concurrently": "^3.5.0",
+    "nodemon": "^1.18.3"
   },
   "lint-staged": {
     "*.{js, jsx}": [
