@@ -2,7 +2,7 @@
   "name": "example-create-react-app-express",
   "version": "1.0.0",
   "scripts": {
-    "client": "cd ../matcha-client && yarn start",
+    "client": "cd ../client && yarn start",
     "server": "nodemon server.js",
     "dev": "concurrently -k --kill-others-on-fail \"yarn server\" \"yarn client\""
   },
