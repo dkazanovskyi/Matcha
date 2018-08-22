@@ -25,7 +25,7 @@ class HomePage extends Component {
           </Menu>
         </Sider>
       </Layout>
-    )
+    );
   }
 }
 
