@@ -4,8 +4,9 @@ The dating website project using modern web technologies
 
 # How to run
 
-`cd matcha-server/` &&
-`npm run dev`
+`cd clent/` &&
+`yarn` / `npm install` &&
+`yarn dev` / `npm run dev`
 
 # TODO
 #### User
