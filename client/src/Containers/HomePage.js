@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
+import AuthPage from './AuthPage'
 import { Layout, Menu, Icon } from 'antd'
 const { Sider } = Layout
-
 class HomePage extends Component {
   state = {}
   render() {
@@ -24,6 +24,7 @@ class HomePage extends Component {
             </Menu.Item>
           </Menu>
         </Sider>
+        <AuthPage />
       </Layout>
     )
   }
