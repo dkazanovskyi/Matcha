@@ -13,12 +13,14 @@
     "react-scripts": "1.1.4",
     "redux": "^4.0.0",
     "redux-saga": "^0.16.0",
-    "express": "^4.16.2"
+    "express": "^4.16.2",
+    "react-app-rewire-less": "^2.1.2",
+    "react-app-rewired": "^1.5.2"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
+    "start": "react-app-rewired start",
+    "build": "react-app-rewired build",
+    "test": "react-app-rewired test --env=jsdom",
     "eject": "react-scripts eject",
     "precommit": "lint-staged",
     "client": "yarn start",
@@ -28,6 +30,7 @@
   "proxy": "http://localhost:5000/",
   "devDependencies": {
     "babel-eslint": "8",
+    "babel-plugin-import": "^1.8.0",
     "eslint": "^5.3.0",
     "eslint-config-prettier": "^2.9.0",
     "eslint-plugin-prettier": "^2.6.2",
