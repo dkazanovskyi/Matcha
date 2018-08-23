@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
-import AuthPage from './AuthPage'
+// import AuthPage from './AuthPage'
 import { Layout, Menu, Icon } from 'antd'
+import { NavLink } from 'react-router-dom'
 const { Sider } = Layout
 class HomePage extends Component {
   state = {}
@@ -22,9 +23,13 @@ class HomePage extends Component {
               <Icon type="rocket" />
               <span>Recomended</span>
             </Menu.Item>
+            <Menu.Item key="4">
+              <Icon type="form" />
+              <span>Auth</span>
+              <NavLink to="/auth" />
+            </Menu.Item>
           </Menu>
         </Sider>
-        <AuthPage />
       </Layout>
     )
   }

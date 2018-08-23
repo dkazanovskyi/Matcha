@@ -4,10 +4,7 @@ import {
   Input,
   Tooltip,
   Icon,
-  Cascader,
   Select,
-  Row,
-  Col,
   Checkbox,
   Button,
   AutoComplete
@@ -16,41 +13,6 @@ import {
 const FormItem = Form.Item
 const Option = Select.Option
 const AutoCompleteOption = AutoComplete.Option
-
-const residences = [
-  {
-    value: 'zhejiang',
-    label: 'Zhejiang',
-    children: [
-      {
-        value: 'hangzhou',
-        label: 'Hangzhou',
-        children: [
-          {
-            value: 'xihu',
-            label: 'West Lake'
-          }
-        ]
-      }
-    ]
-  },
-  {
-    value: 'jiangsu',
-    label: 'Jiangsu',
-    children: [
-      {
-        value: 'nanjing',
-        label: 'Nanjing',
-        children: [
-          {
-            value: 'zhonghuamen',
-            label: 'Zhong Hua Men'
-          }
-        ]
-      }
-    ]
-  }
-]
 
 class RegistrationForm extends React.Component {
   state = {
@@ -203,18 +165,6 @@ class RegistrationForm extends React.Component {
             ]
           })(<Input />)}
         </FormItem>
-        <FormItem {...formItemLayout} label="Habitual Residence">
-          {getFieldDecorator('residence', {
-            initialValue: ['zhejiang', 'hangzhou', 'xihu'],
-            rules: [
-              {
-                type: 'array',
-                required: true,
-                message: 'Please select your habitual residence!'
-              }
-            ]
-          })(<Cascader options={residences} />)}
-        </FormItem>
         <FormItem {...formItemLayout} label="Phone Number">
           {getFieldDecorator('phone', {
             rules: [
@@ -234,27 +184,6 @@ class RegistrationForm extends React.Component {
               <Input />
             </AutoComplete>
           )}
-        </FormItem>
-        <FormItem
-          {...formItemLayout}
-          label="Captcha"
-          extra="We must make sure that your are a human."
-        >
-          <Row gutter={8}>
-            <Col span={12}>
-              {getFieldDecorator('captcha', {
-                rules: [
-                  {
-                    required: true,
-                    message: 'Please input the captcha you got!'
-                  }
-                ]
-              })(<Input />)}
-            </Col>
-            <Col span={12}>
-              <Button>Get captcha</Button>
-            </Col>
-          </Row>
         </FormItem>
         <FormItem {...tailFormItemLayout}>
           {getFieldDecorator('agreement', {
