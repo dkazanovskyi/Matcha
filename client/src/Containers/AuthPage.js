@@ -10,6 +10,7 @@ class AuthPage extends React.Component {
     this.state = {}
   }
   render() {
+    console.log("Darova")
     return (
       <Layout>
         <Header style={{ color: 'white' }}>Matcha</Header>
