@@ -7,6 +7,7 @@ import store from './Store'
 import { Route, Switch } from 'react-router'
 import { ConnectedRouter } from 'connected-react-router'
 import { history } from './Store'
+import AuthPage from './Containers/AuthPage'
 
 class App extends React.Component {
   render() {
@@ -17,6 +18,7 @@ class App extends React.Component {
             <div>
               <Switch>
                 <Route exact path="/404" render={() => <div>Miss</div>} />
+                <Route path="/auth" exact component={AuthPage} />
                 <Route path="/" component={HomePage} />
               </Switch>
             </div>

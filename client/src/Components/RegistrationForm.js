@@ -1,32 +1,15 @@
 import React from 'react'
-import {
-  Form,
-  Input,
-  Tooltip,
-  Icon,
-  Select,
-  Checkbox,
-  Button,
-  AutoComplete
-} from 'antd'
+import { Form, Input, Tooltip, Icon, Checkbox, Button } from 'antd'
 
 const FormItem = Form.Item
-const Option = Select.Option
-const AutoCompleteOption = AutoComplete.Option
 
 class RegistrationForm extends React.Component {
   state = {
-    confirmDirty: false,
-    autoCompleteResult: []
+    confirmDirty: false
   }
 
   handleSubmit = e => {
     e.preventDefault()
-    this.props.form.validateFieldsAndScroll((err, values) => {
-      if (!err) {
-        console.log('Received values of form: ', values)
-      }
-    })
   }
 
   handleConfirmBlur = e => {
@@ -65,7 +48,6 @@ class RegistrationForm extends React.Component {
 
   render() {
     const { getFieldDecorator } = this.props.form
-    const { autoCompleteResult } = this.state
 
     const formItemLayout = {
       labelCol: {
@@ -89,21 +71,38 @@ class RegistrationForm extends React.Component {
         }
       }
     }
-    const prefixSelector = getFieldDecorator('prefix', {
-      initialValue: '86'
-    })(
-      <Select style={{ width: 70 }}>
-        <Option value="86">+86</Option>
-        <Option value="87">+87</Option>
-      </Select>
-    )
-
-    const websiteOptions = autoCompleteResult.map(website => (
-      <AutoCompleteOption key={website}>{website}</AutoCompleteOption>
-    ))
 
     return (
       <Form layout="vertical" onSubmit={this.handleSubmit}>
+        <FormItem {...formItemLayout} label="First Name">
+          {getFieldDecorator('first name', {
+            rules: [
+              {
+                type: 'email',
+                message: 'The input is not valid first name!'
+              },
+              {
+                required: true,
+                message: 'Please input your first name!'
+              }
+            ]
+          })(<Input />)}
+        </FormItem>
+
+        <FormItem {...formItemLayout} label="Last Name">
+          {getFieldDecorator('last name', {
+            rules: [
+              {
+                type: 'email',
+                message: 'The input is not valid last name!'
+              },
+              {
+                required: true,
+                message: 'Please input your last name!'
+              }
+            ]
+          })(<Input />)}
+        </FormItem>
         <FormItem {...formItemLayout} label="E-mail">
           {getFieldDecorator('email', {
             rules: [
@@ -114,6 +113,27 @@ class RegistrationForm extends React.Component {
               {
                 required: true,
                 message: 'Please input your E-mail!'
+              }
+            ]
+          })(<Input />)}
+        </FormItem>
+        <FormItem
+          {...formItemLayout}
+          label={
+            <span>
+              Nickname&nbsp;
+              <Tooltip title="What do you want others to call you?">
+                <Icon type="question-circle-o" />
+              </Tooltip>
+            </span>
+          }
+        >
+          {getFieldDecorator('nickname', {
+            rules: [
+              {
+                required: true,
+                message: 'Please input your nickname!',
+                whitespace: false
               }
             ]
           })(<Input />)}
@@ -143,47 +163,6 @@ class RegistrationForm extends React.Component {
               }
             ]
           })(<Input type="password" onBlur={this.handleConfirmBlur} />)}
-        </FormItem>
-        <FormItem
-          {...formItemLayout}
-          label={
-            <span>
-              Nickname&nbsp;
-              <Tooltip title="What do you want others to call you?">
-                <Icon type="question-circle-o" />
-              </Tooltip>
-            </span>
-          }
-        >
-          {getFieldDecorator('nickname', {
-            rules: [
-              {
-                required: true,
-                message: 'Please input your nickname!',
-                whitespace: true
-              }
-            ]
-          })(<Input />)}
-        </FormItem>
-        <FormItem {...formItemLayout} label="Phone Number">
-          {getFieldDecorator('phone', {
-            rules: [
-              { required: true, message: 'Please input your phone number!' }
-            ]
-          })(<Input addonBefore={prefixSelector} style={{ width: '100%' }} />)}
-        </FormItem>
-        <FormItem {...formItemLayout} label="Website">
-          {getFieldDecorator('website', {
-            rules: [{ required: true, message: 'Please input website!' }]
-          })(
-            <AutoComplete
-              dataSource={websiteOptions}
-              onChange={this.handleWebsiteChange}
-              placeholder="website"
-            >
-              <Input />
-            </AutoComplete>
-          )}
         </FormItem>
         <FormItem {...tailFormItemLayout}>
           {getFieldDecorator('agreement', {
