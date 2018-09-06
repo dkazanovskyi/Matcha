@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { Form, Input, Tooltip, Icon, Button } from 'antd'
-import { ValidationTypes } from '../Redux/inputValidator'
+import ValidationActions from '../Redux/inputValidator'
 
 const FormItem = Form.Item
 
@@ -113,9 +113,9 @@ class RegistrationForm extends React.Component {
 }
 
 const mapDispatchToProps = dispatch => {
-  console.log('VALIDATION TYPES', ValidationTypes)
+  console.log('VALIDATION TYPES', ValidationActions)
   return {
-    validateInput: () => dispatch(ValidationTypes.validateInputRequest())
+    validateInput: () => dispatch(ValidationActions.validateInputRequest())
   }
 }
 
