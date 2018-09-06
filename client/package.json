@@ -4,10 +4,18 @@
   "private": true,
   "dependencies": {
     "antd": "^3.8.1",
+    "axios": "^0.18.0",
+    "bcryptjs": "^2.4.3",
     "body-parser": "^1.18.3",
+    "connect-mongo": "^2.0.1",
     "connected-react-router": "^4.4.1",
     "express": "^4.16.2",
+    "express-session": "^1.15.6",
     "mongodb": "^3.1.4",
+    "mongoose": "^5.2.8",
+    "morgan": "^1.9.0",
+    "passport": "^0.4.0",
+    "passport-local": "^1.0.0",
     "react": "^16.4.2",
     "react-app-rewire-less": "^2.1.2",
     "react-app-rewired": "^1.5.2",
@@ -24,7 +32,7 @@
     "build": "react-app-rewired build",
     "test": "react-app-rewired test --env=jsdom",
     "eject": "react-scripts eject",
-    "precommit": "lint-staged",
+
     "client": "yarn start",
     "server": "nodemon server/server.js",
     "dev": "concurrently -k --kill-others-on-fail \"yarn server\" \"yarn client\""
@@ -43,12 +51,5 @@
     "prop-types": "^15.6.2",
     "concurrently": "^3.5.0",
     "nodemon": "^1.18.3"
-  },
-  "lint-staged": {
-    "*.{js, jsx}": [
-      "node_modules/.bin/eslint --max-warnings=3",
-      "prettier --write",
-      "git add"
-    ]
   }
 }
