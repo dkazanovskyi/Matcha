@@ -1,5 +1,6 @@
 import { combineReducers } from 'redux'
+import { InputReducer } from './inputValidator'
 
 export const reducers = combineReducers({
-  empty: () => null
+  input: InputReducer
 })

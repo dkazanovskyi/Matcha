@@ -1,5 +1,7 @@
 import React from 'react'
-import { Form, Input, Tooltip, Icon, Checkbox, Button } from 'antd'
+import { connect } from 'react-redux'
+import { Form, Input, Tooltip, Icon, Button } from 'antd'
+import { ValidationTypes } from '../Redux/inputValidator'
 
 const FormItem = Form.Item
 
@@ -46,9 +48,12 @@ class RegistrationForm extends React.Component {
     this.setState({ autoCompleteResult })
   }
 
-  render() {
-    const { getFieldDecorator } = this.props.form
+  requiredField = () => {
+    console.log('VALIDATE', this, this.props)
+    this.props.validateInput()
+  }
 
+  render() {
     const formItemLayout = {
       labelCol: {
         xs: { span: 24 },
@@ -75,48 +80,9 @@ class RegistrationForm extends React.Component {
     return (
       <Form layout="vertical" onSubmit={this.handleSubmit}>
         <FormItem {...formItemLayout} label="First Name">
-          {getFieldDecorator('first name', {
-            rules: [
-              {
-                type: 'email',
-                message: 'The input is not valid first name!'
-              },
-              {
-                required: true,
-                message: 'Please input your first name!'
-              }
-            ]
-          })(<Input />)}
+          <Input onChange={this.requiredField} />
         </FormItem>
 
-        <FormItem {...formItemLayout} label="Last Name">
-          {getFieldDecorator('last name', {
-            rules: [
-              {
-                type: 'email',
-                message: 'The input is not valid last name!'
-              },
-              {
-                required: true,
-                message: 'Please input your last name!'
-              }
-            ]
-          })(<Input />)}
-        </FormItem>
-        <FormItem {...formItemLayout} label="E-mail">
-          {getFieldDecorator('email', {
-            rules: [
-              {
-                type: 'email',
-                message: 'The input is not valid E-mail!'
-              },
-              {
-                required: true,
-                message: 'Please input your E-mail!'
-              }
-            ]
-          })(<Input />)}
-        </FormItem>
         <FormItem
           {...formItemLayout}
           label={
@@ -128,50 +94,13 @@ class RegistrationForm extends React.Component {
             </span>
           }
         >
-          {getFieldDecorator('nickname', {
-            rules: [
-              {
-                required: true,
-                message: 'Please input your nickname!',
-                whitespace: false
-              }
-            ]
-          })(<Input />)}
+          <Input />
         </FormItem>
         <FormItem {...formItemLayout} label="Password">
-          {getFieldDecorator('password', {
-            rules: [
-              {
-                required: true,
-                message: 'Please input your password!'
-              },
-              {
-                validator: this.validateToNextPassword
-              }
-            ]
-          })(<Input type="password" />)}
+          <Input type="password" />
         </FormItem>
         <FormItem {...formItemLayout} label="Confirm Password">
-          {getFieldDecorator('confirm', {
-            rules: [
-              {
-                required: true,
-                message: 'Please confirm your password!'
-              },
-              {
-                validator: this.compareToFirstPassword
-              }
-            ]
-          })(<Input type="password" onBlur={this.handleConfirmBlur} />)}
-        </FormItem>
-        <FormItem {...tailFormItemLayout}>
-          {getFieldDecorator('agreement', {
-            valuePropName: 'checked'
-          })(
-            <Checkbox>
-              I have read the <a href="">agreement</a>
-            </Checkbox>
-          )}
+          <Input type="password" onBlur={this.handleConfirmBlur} />
         </FormItem>
         <FormItem {...tailFormItemLayout}>
           <Button type="primary" htmlType="submit">
@@ -183,6 +112,12 @@ class RegistrationForm extends React.Component {
   }
 }
 
-const WrappedRegistrationForm = Form.create()(RegistrationForm)
+const mapDispatchToProps = dispatch => {
+  console.log('VALIDATION TYPES', ValidationTypes)
+  return {
+    validateInput: () => dispatch(ValidationTypes.validateInputRequest())
+  }
+}
 
-export default WrappedRegistrationForm
+export default connect(null, mapDispatchToProps)(RegistrationForm)
+
