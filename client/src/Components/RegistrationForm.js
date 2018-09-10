@@ -1,12 +1,8 @@
 import React from 'react'
-<<<<<<< HEAD
 import { connect } from 'react-redux'
 import { Form, Input, Tooltip, Icon, Button } from 'antd'
 import ValidationActions from '../Redux/inputValidator'
-=======
-import { Form, Input, Tooltip, Icon,  Button } from 'antd'
 import axios from 'axios'
->>>>>>> 093c506e636e9311a5274e93dba945710713ec14
 
 const FormItem = Form.Item
 
