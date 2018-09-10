@@ -3,7 +3,6 @@ import './App.css'
 import 'antd/dist/antd.css'
 import HomePage from './Containers/HomePage'
 import AuthPage from './Containers/AuthPage'
-import NavBar from './Containers/NavBar'
 import Signup from './Containers/sign-up'
 import LoginForm from './Containers/login-form'
 import { Provider } from 'react-redux'
@@ -58,7 +57,7 @@ class App extends React.Component {
           <ConnectedRouter history={history}>
             
             <div>
-              <NavBar updateUser={this.updateUser} loggedIn={this.state.loggedIn} />
+              {/* <NavBar updateUser={this.updateUser} loggedIn={this.state.loggedIn} /> */}
               {/* greet user if logged in: */}
               {this.state.loggedIn &&
                 <p>Join the party, {this.state.username}!</p>
