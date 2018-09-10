@@ -11,7 +11,8 @@ router.post('/', (req, res) => {
       email: req.body.email,
       lastname: req.body.lastname,
       firstname: req.body.firstname,
-      password: req.body.password
+      password: req.body.password,
+      verifStatus: false
   })
   newUser.save((err, savedUser) => {
     if (err) return res.status(203).json(err)

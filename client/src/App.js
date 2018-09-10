@@ -55,7 +55,6 @@ class App extends React.Component {
       <div className="App">
         <Provider store={store}>
           <ConnectedRouter history={history}>
-            
             <div>
               {/* <NavBar updateUser={this.updateUser} loggedIn={this.state.loggedIn} /> */}
               {/* greet user if logged in: */}

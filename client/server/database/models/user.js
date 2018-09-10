@@ -10,7 +10,8 @@ const userSchema = new Schema({
 	username: { type: String, unique: false, required: false },
 	lastname: { type: String, unique: false, required: false },
 	firstname: { type: String, unique: false, required: false },
-	password: { type: String, unique: false, required: false }
+	password: { type: String, unique: false, required: false },
+	verifStatus: {type: Boolean, unique: false, required: false}
 
 })
 
