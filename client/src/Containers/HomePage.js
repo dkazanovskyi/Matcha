@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-// import AuthPage from './AuthPage'
 import { Layout, Menu, Icon } from 'antd'
 import { NavLink } from 'react-router-dom'
 const { Sider } = Layout
@@ -28,8 +27,13 @@ class HomePage extends Component {
             </Menu.Item>
             <Menu.Item key="4">
               <Icon type="form" />
-              <span>Auth</span>
-              <NavLink to="/auth" />
+              <span>Register</span>
+              <NavLink to="/auth/register" />
+            </Menu.Item>
+            <Menu.Item key="4">
+              <Icon type="form" />
+              <span>Login</span>
+              <NavLink to="/auth/login" />
             </Menu.Item>
           </Menu>
         </Sider>

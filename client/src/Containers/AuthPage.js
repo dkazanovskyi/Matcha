@@ -1,6 +1,8 @@
 import React from 'react'
-import { Layout, Row, Col, Card } from 'antd'
+import { Layout, Row, Col } from 'antd'
 import RegistrationForm from '../Components/RegistrationForm.js'
+import LoginForm from '../Components/LoginForm.js'
+import { Route, Switch } from 'react-router-dom'
 
 const { Header, Content, Footer } = Layout
 
@@ -10,16 +12,16 @@ class AuthPage extends React.Component {
     this.state = {}
   }
   render() {
-    console.log("Darova")
     return (
       <Layout>
         <Header style={{ color: 'white' }}>Matcha</Header>
         <Content style={{ padding: '50px 0', backgroundColor: '#fff' }}>
           <Row>
             <Col span={12} offset={6}>
-              <Card title="Registration">
-                <RegistrationForm />
-              </Card>
+              <Switch>
+                <Route exact path="/auth/register" component={RegistrationForm} />
+                <Route exact path="/auth/login" component={LoginForm} />
+              </Switch>
             </Col>
           </Row>
         </Content>

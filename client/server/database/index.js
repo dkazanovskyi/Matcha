@@ -5,7 +5,7 @@ mongoose.Promise = global.Promise
 //your local database url
 //27017 is the default mongoDB port
 // const uri = 'mongodb://localhost:27017/matcha' 
-const uri = 'mongodb+srv://kay:myRealPassword@cluster0.mongodb.net/test'
+const uri = 'https://api.mlab.com/api/1/databases?apiKey=pTL52ZoZgStvFx7GWV1AZTJDQDEbpUqa'
 mongoose.set('useFindAndModify', false)
 
 mongoose.connect(uri, {useNewUrlParser: true }).then(
