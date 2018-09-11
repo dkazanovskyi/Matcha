@@ -3,7 +3,7 @@ import './App.css'
 import 'antd/dist/antd.css'
 import HomePage from './Containers/HomePage'
 import AuthPage from './Containers/AuthPage'
-import Signup from './Containers/sign-up'
+import VerifyCode from './Components/VerifyCode'
 import LoginForm from './Containers/login-form'
 import { Provider } from 'react-redux'
 import store from './Store'
@@ -62,7 +62,6 @@ class App extends React.Component {
                 <p>Join the party, {this.state.username}!</p>
               }
               <Switch>
-                <Route exact path="/404" render={() => <div>Miss</div>} />
                 <Route exact path="/" component={ HomePage} />
                 <Route path="/auth" component={AuthPage } />
                 <Route path="/profile" component={ HomePage} />
@@ -73,13 +72,8 @@ class App extends React.Component {
                       updateUser={this.updateUser}
                     />}
                 />
-                <Route
-                  path="/signup"
-                  render={() =>
-                    <Signup
-                      signup={this.signup}
-                    />}
-                />
+                <Route path="/mail_verify/:code" component={VerifyCode}/>
+                <Route render={() => <div>Not Found</div>} />
               </Switch>
             </div>
           </ConnectedRouter>

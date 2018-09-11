@@ -1,6 +1,7 @@
 import React from 'react'
-import { Form, Input, Tooltip, Icon,  Button } from 'antd'
+import { Form, Input, Tooltip, Icon, Button , notification } from 'antd'
 import axios from 'axios'
+import { withRouter } from 'react-router-dom'
 
 const FormItem = Form.Item
 
@@ -9,28 +10,64 @@ class RegistrationForm extends React.Component {
 		confirmDirty: false
 	}
 
+	actionRedirect = () => {
+		this.props.history.push("/")
+	}
+
+	actionError = (button) => {
+		button.disabled = false
+	}
+
+	openNotification = (type, msg, desc, action) => {
+		const key = `open${Date.now()}`
+		const btn = (
+			<Button type="primary" size="small" onClick={() => notification.close(key)}>
+				Confirm
+			</Button>
+		)
+		notification.open({
+			type: type,
+			message: msg,
+			description: desc,
+			btn,
+			key,
+			onClose: action,
+		})
+	}
+
 	handleSubmit = e => {
+		const button = e.target.querySelector("button")
 		e.preventDefault()
 		this.props.form.validateFieldsAndScroll((err, values) => {
 			if (!err) {
-				console.log('Received values of form: ', values)
+				button.disabled = true
 				axios.post('/signup/', values)
 					.then(response => {
-						console.log(response)
 						if (response.status === 200) {
-							console.log('successful signup')
+							notification.config({ duration: 3 	})
+							let msg = "Success registration"
+							let desc = 'Letter confirmation email has been sent. After 3 seconds you will be redirected to the main page.'
+							this.openNotification('success', msg, desc, this.actionRedirect)
+							setTimeout( this.actionRedirect, 3000)
 						} else {
-							console.log(response.data.error)
+							notification.config({ duration: 2 })
+							let msg = "Fetch error"
+							let desc = 'An attempt to contact the database resulted in an error. Try again.\n'+response.data.error
+							this.openNotification('error', msg, desc, this.actionError(button))
 						}
 					}).catch(error => {
-						console.log('check error: ')
-						console.log(error)
+						notification.config({ duration: 2 })
+						let msg = "API error"
+						let desc = 'An attempt to contact the API resulted in an error. Try again.\n'+error
+						this.openNotification('error', msg, desc, this.actionError(button))
 					})
 			} else {
-				console.log("HELLO", err)
+				notification.config({ duration: 1 })
+				let msg = "Fields error"
+				let desc = 'Fill in all required fields'
+				this.openNotification('warning', msg, desc, this.actionError(button))
 			}
 		})
-		
 	}
 
 	handleConfirmBlur = e => {
@@ -56,23 +93,17 @@ class RegistrationForm extends React.Component {
 	}
 
 	checkExists = (rule, value, callback) => {
-		console.log("DAROV", rule,  value)
 		axios.post('/signup/checkExists', {
 			type: rule.field,
 			value: value
 		})
 			.then(response => {
-				console.log(response)
 				if (response.status === 200) {
-					console.log('successful check')
 					callback()
 				} else {
-					console.log(response.data.error)
 					callback(false)
 				}
-			}).catch(error => {
-				console.log('check error: ')
-				console.log(error)
+			}).catch(() => {
 				callback(false)
 			})
 	}
@@ -161,7 +192,7 @@ class RegistrationForm extends React.Component {
 					{...formItemLayout}
 					label={
 						<span>
-							Username&nbsp;
+							Username
 							<Tooltip title="What do you want others to call you?">
 								<Icon type="question-circle-o" />
 							</Tooltip>
@@ -221,7 +252,7 @@ class RegistrationForm extends React.Component {
 					})(<Input type="password" onBlur={this.handleConfirmBlur} />)}
 				</FormItem>
 				<FormItem {...tailFormItemLayout}>
-					<Button type="primary" htmlType="submit" onClick={this.onSubmit}>
+					<Button type="primary" htmlType="submit" >
 						Register
 					</Button>
 				</FormItem>
@@ -232,4 +263,4 @@ class RegistrationForm extends React.Component {
 
 const WrappedRegistrationForm = Form.create()(RegistrationForm)
 
-export default WrappedRegistrationForm
+export default withRouter(WrappedRegistrationForm)
