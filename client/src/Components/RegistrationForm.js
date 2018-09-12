@@ -1,5 +1,8 @@
 import React from 'react'
+import { compose } from 'redux'
+import { connect } from 'react-redux'
 import { Form, Input, Tooltip, Icon, Button , notification } from 'antd'
+import ValidationActions from '../Redux/inputValidator'
 import axios from 'axios'
 import { withRouter } from 'react-router-dom'
 
@@ -262,7 +265,15 @@ class RegistrationForm extends React.Component {
 		)
 	}
 }
-
 const WrappedRegistrationForm = Form.create()(RegistrationForm)
 
-export default withRouter(WrappedRegistrationForm)
+const mapDispatchToProps = dispatch => {
+  console.log('VALIDATION TYPES', ValidationActions)
+  return {
+    validateInput: () => dispatch(ValidationActions.validateInputRequest())
+  }
+}
+
+export default compose(
+	withRouter, 
+	connect(null, mapDispatchToProps)(WrappedRegistrationForm))

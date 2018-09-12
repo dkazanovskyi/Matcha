@@ -28,7 +28,9 @@
     "react-router-dom": "^4.3.1",
     "react-scripts": "1.1.4",
     "redux": "^4.0.0",
-    "redux-saga": "^0.16.0"
+    "redux-saga": "^0.16.0",
+    "reduxsauce": "^1.0.0",
+    "seamless-immutable": "^7.1.4"
   },
   "scripts": {
     "start": "react-app-rewired start",
@@ -43,15 +45,15 @@
   "devDependencies": {
     "babel-eslint": "8",
     "babel-plugin-import": "^1.8.0",
+    "concurrently": "^3.5.0",
     "eslint": "^5.3.0",
     "eslint-config-prettier": "^2.9.0",
     "eslint-plugin-prettier": "^2.6.2",
     "eslint-plugin-react-app": "^3.0.0",
     "husky": "^0.14.3",
     "lint-staged": "^7.2.2",
+    "nodemon": "^1.18.3",
     "prettier": "^1.14.2",
-    "prop-types": "^15.6.2",
-    "concurrently": "^3.5.0",
-    "nodemon": "^1.18.3"
+    "prop-types": "^15.6.2"
   }
 }

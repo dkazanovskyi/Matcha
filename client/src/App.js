@@ -63,7 +63,7 @@ class App extends React.Component {
               }
               <Switch>
                 <Route exact path="/" component={ HomePage} />
-                <Route path="/auth" component={AuthPage } />
+                <Route path="/auth" component={AuthPage} />
                 <Route path="/profile" component={ HomePage} />
                 <Route
                   path="/login"
