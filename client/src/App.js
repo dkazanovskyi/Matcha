@@ -72,7 +72,7 @@ class App extends React.Component {
                       updateUser={this.updateUser}
                     />}
                 />
-                <Route path="/mail_verify/:code" component={VerifyCode}/>
+                <Route path="/signup/mail_verify/:code" component={VerifyCode}/>
                 <Route render={() => <div>Not Found</div>} />
               </Switch>
             </div>

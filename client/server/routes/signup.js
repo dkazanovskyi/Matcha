@@ -35,7 +35,7 @@ router.post('/', (req, res) => {
 	newUser.save((err, savedUser) => {
 		if (err) return res.status(203).json(err)
 		console.log("Saved:------", savedUser)
-		const textMail = 'Press this link: http://localhost:3000/mail_verify?code='+hashMail
+		const textMail = 'Press this link: http://localhost:3000/signup/mail_verify/'+hashMail
 		const mailOptions = {
 			from: 'no-reply@matcha.com',
 			to: `${req.body.email}`,
@@ -85,6 +85,30 @@ router.post('/checkExists', (req, res, next) => {
 				}
 			})
 		}
+})
+
+router.post('/mail_verify', (req, res, next) => {
+	console.log('===== МУКШАН!!======', req.body)
+	verifCode.findOne({ verifCode: req.body.code }, (err, note) => {
+		if (err) {
+				console.log('VerifCode.js post error: ', err)
+		} else if (note) {
+				console.log("==========================", note)
+				const username = note.username
+				User.updateOne({ username: username }, { $set: { verifStatus: true }}, function (err, raw) {
+					if (err) console.log('VerifCode.js update error: ', err)
+					console.log('EXCELLENT UPDATE ', raw)
+				})
+				verifCode.deleteOne({ verifCode: req.body.code }, function (err) {
+					if (err) console.log('VerifCode.js delete error: ', err)
+				})
+				res.json({msg: 'Check usename: OK'})
+		} else {
+			res.status(203).json({
+				error: `Sorry, we did not find the user with the code:: ${req.body.code}`
+			})
+		}
+	})
 })
 
 module.exports = router

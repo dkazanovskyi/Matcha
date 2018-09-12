@@ -21,7 +21,9 @@ class RegistrationForm extends React.Component {
 	openNotification = (type, msg, desc, action) => {
 		const key = `open${Date.now()}`
 		const btn = (
-			<Button type="primary" size="small" onClick={() => notification.close(key)}>
+			<Button type="primary" size="small" onClick={() => {
+				action()
+				notification.close(key)}}>
 				Confirm
 			</Button>
 		)
@@ -44,7 +46,7 @@ class RegistrationForm extends React.Component {
 				axios.post('/signup/', values)
 					.then(response => {
 						if (response.status === 200) {
-							notification.config({ duration: 3 	})
+							notification.config({ duration: 3 })
 							let msg = "Success registration"
 							let desc = 'Letter confirmation email has been sent. After 3 seconds you will be redirected to the main page.'
 							this.openNotification('success', msg, desc, this.actionRedirect)
