@@ -1,10 +1,10 @@
 import React from 'react'
-import { compose } from 'redux'
 import { connect } from 'react-redux'
 import { Form, Input, Tooltip, Icon, Button , notification } from 'antd'
 import ValidationActions from '../Redux/inputValidator'
 import axios from 'axios'
 import { withRouter } from 'react-router-dom'
+import { append, propOr } from 'ramda'
 
 const FormItem = Form.Item
 
@@ -113,6 +113,14 @@ class RegistrationForm extends React.Component {
 			})
 	}
 
+	validateUsername = (rule, value, cb) => {
+		let errors = []
+
+		errors = propOr(0, 'length', value) < 3 ? append(new Error('Username should be at least 6 characters !'), errors) : errors
+		setTimeout(() => cb(errors), 1000)
+		return 
+	}
+
 	render() {
 		const { getFieldDecorator } = this.props.form
 
@@ -212,6 +220,9 @@ class RegistrationForm extends React.Component {
 									message: 'The input is not valid username!'
 								},
 								{
+									validator: this.validateUsername
+								},
+								{
 									required: true,
 									message: 'Please input your username!',
 									whitespace: false
@@ -268,12 +279,11 @@ class RegistrationForm extends React.Component {
 const WrappedRegistrationForm = Form.create()(RegistrationForm)
 
 const mapDispatchToProps = dispatch => {
-  console.log('VALIDATION TYPES', ValidationActions)
-  return {
-    validateInput: () => dispatch(ValidationActions.validateInputRequest())
-  }
+	console.log('VALIDATION TYPES', ValidationActions)
+	return {
+		validateInput: () => dispatch(ValidationActions.validateInputRequest())
+	}
 }
 
-export default compose(
-	withRouter, 
+export default withRouter( 
 	connect(null, mapDispatchToProps)(WrappedRegistrationForm))

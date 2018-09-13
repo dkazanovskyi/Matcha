@@ -30,7 +30,7 @@ class HomePage extends Component {
               <span>Register</span>
               <NavLink to="/auth/register" />
             </Menu.Item>
-            <Menu.Item key="4">
+            <Menu.Item key="5">
               <Icon type="form" />
               <span>Login</span>
               <NavLink to="/auth/login" />
