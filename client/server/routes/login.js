@@ -3,20 +3,23 @@ const router = express.Router()
 const passport = require('../passport')
 
 router.post(
-  '/',
-  function (req, res, next) {
-      console.log('routes/user.js, login, req.body: ')
-      console.log(req.body)
-      next()
-  },
-  passport.authenticate('local'),
-  (req, res) => {
-      console.log('logged in', req.user)
-      var userInfo = {
-          username: req.user.username
-      }
-      res.send(userInfo)
-  }
+	'/',
+	function (req, res, next) {
+		passport.authenticate('local', (err, user, info) => {
+			console.log('logged in', user)
+			if (err) console.log("Login error:", err)
+			let result = {}
+			if (!user) {
+				result = info
+				res.status(203)
+			} else {
+				result = {
+					username: user.username
+				}
+			}
+			res.json(result)
+		})(req, res, next)
+	}
 )
 
 module.exports = router

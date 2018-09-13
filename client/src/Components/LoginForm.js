@@ -12,6 +12,7 @@ class LoginForm extends React.Component {
 	}
 
 	actionError = (button) => {
+		console.log("ACTION")
 		button.disabled = false
 	}
 
@@ -47,16 +48,17 @@ class LoginForm extends React.Component {
 					password: password.value
 				})
 					.then(response => {
+						console.log("RESPONSE", response)
 						if (response.status === 200) {
 							notification.config({ duration: 3 })
-							let msg = "Success registration"
-							let desc = 'Letter confirmation email has been sent. After 3 seconds you will be redirected to the main page.'
+							let msg = "Success authorize"
+							let desc = 'Have fun'
 							this.openNotification('success', msg, desc, this.actionRedirect)
 							setTimeout( this.actionRedirect, 3000)
 						} else {
-							notification.config({ duration: 2 })
-							let msg = "Fetch error"
-							let desc = 'An attempt to contact the database resulted in an error. Try again.\n'+response.data.error
+							notification.config({ duration: 3 })
+							let msg = response.data.message
+							let desc = 'An attempt to authorize has led to an error. Try again.\n'
 							this.openNotification('error', msg, desc, this.actionError(button))
 						}
 					}).catch(error => {
