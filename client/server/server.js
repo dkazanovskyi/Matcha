@@ -12,6 +12,9 @@ const PORT = 5000
 
 // MIDDLEWARE
 app.use(morgan('dev'))
+/* app.use((req, res) => {
+	console.log(req.url)
+}) */
 app.use(
 	bodyParser.urlencoded({
 		extended: false

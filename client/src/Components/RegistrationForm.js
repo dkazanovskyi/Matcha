@@ -181,6 +181,7 @@ class RegistrationForm extends React.Component {
 				<FormItem {...formItemLayout} label="E-mail">
 					{getFieldDecorator('email', {
 						validate: [{
+							trigger: 'onBlur',
 							rules: [
 								{
 									type: 'email',

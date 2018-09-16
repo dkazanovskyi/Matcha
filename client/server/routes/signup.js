@@ -1,3 +1,5 @@
+const path = require('ramda').path
+
 const express = require('express')
 const router = express.Router()
 const User = require('../database/models/user')
@@ -6,8 +8,6 @@ const nodemailer = require('nodemailer')
 const md5 = require('md5')
 
 router.post('/', (req, res) => {
-	console.log('user signup')
-	console.log("object=============", req.body)
 	const transporter = nodemailer.createTransport({
 		service: 'gmail',
 		auth: {
@@ -16,7 +16,7 @@ router.post('/', (req, res) => {
 		}
 	})
 	const newUser = new User({
-			username: req.body.username,
+			username: path(['body', 'username'], req),
 			email: req.body.email,
 			lastname: req.body.lastname,
 			firstname: req.body.firstname,
@@ -30,11 +30,9 @@ router.post('/', (req, res) => {
 	})
 	newVerifCode.save((err, savedCode) => {
 		if (err) return res.status(203).json(err)
-		console.log("Saved:------", savedCode)
 	})
 	newUser.save((err, savedUser) => {
 		if (err) return res.status(203).json(err)
-		console.log("Saved:------", savedUser)
 		const textMail = 'Press this link: http://localhost:3000/signup/mail_verify/'+hashMail
 		const mailOptions = {
 			from: 'no-reply@matcha.com',
@@ -57,13 +55,12 @@ router.post('/', (req, res) => {
 
 
 router.post('/checkExists', (req, res, next) => {
-		console.log('===== CHECK!!======', req.body)
+	console.log("TUTT ", req.body.type, path(['body', 'type'], req))
 		if (req.body.type === 'username') {
 			User.findOne({ username: req.body.value }, (err, user) => {
 				if (err) {
 						console.log('User.js post error: ', err)
 				} else if (user) {
-						console.log("==========================", user)
 						res.status(203).json({
 								error: `Sorry, already a user with the username: ${req.body.value}`
 						})
@@ -76,7 +73,6 @@ router.post('/checkExists', (req, res, next) => {
 				if (err) {
 						console.log('User.js post error: ', err)
 				} else if (user) {
-						console.log("==========================", user)
 						res.status(203).json({
 								error: `Sorry, already a user with the email: ${req.body.value}`
 						})
@@ -88,16 +84,13 @@ router.post('/checkExists', (req, res, next) => {
 })
 
 router.post('/mail_verify', (req, res, next) => {
-	console.log('===== МУКШАН!!======', req.body)
 	verifCode.findOne({ verifCode: req.body.code }, (err, note) => {
 		if (err) {
 				console.log('VerifCode.js post error: ', err)
 		} else if (note) {
-				console.log("==========================", note)
 				const username = note.username
 				User.updateOne({ username: username }, { $set: { verifStatus: true }}, function (err, raw) {
 					if (err) console.log('VerifCode.js update error: ', err)
-					console.log('EXCELLENT UPDATE ', raw)
 				})
 				verifCode.deleteOne({ verifCode: req.body.code }, function (err) {
 					if (err) console.log('VerifCode.js delete error: ', err)

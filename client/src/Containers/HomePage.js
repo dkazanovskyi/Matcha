@@ -5,7 +5,6 @@ const { Sider } = Layout
 class HomePage extends Component {
   state = {}
   render() {
-    console.log("object")
     return (
       <Layout style={{ minHeight: '100vh' }}>
         <Sider>

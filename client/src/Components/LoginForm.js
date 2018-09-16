@@ -1,5 +1,8 @@
 import React from 'react'
+import { connect } from 'react-redux'
+import { withRouter } from 'react-router-dom'
 import { Form, Icon, Input, Button, Card, notification} from 'antd'
+import UserActions from '../Redux/createUser'
 import { append, propOr } from 'ramda'
 import axios from 'axios'
 
@@ -12,7 +15,6 @@ class LoginForm extends React.Component {
 	}
 
 	actionError = (button) => {
-		console.log("ACTION")
 		button.disabled = false
 	}
 
@@ -127,4 +129,12 @@ class LoginForm extends React.Component {
 
 const WrappedLoginForm = Form.create()(LoginForm)
 
-export default WrappedLoginForm
+const mapDispatchToProps = dispatch => {
+	console.log('VALIDATION TYPES', UserActions)
+	return {
+		validateInput: () => dispatch(UserActions.userRequest())
+	}
+}
+
+export default withRouter( 
+	connect(null, mapDispatchToProps)(WrappedLoginForm))
