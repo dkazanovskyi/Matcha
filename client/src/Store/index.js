@@ -14,7 +14,6 @@ const sagaMiddleware = createSagaMiddleware()
 
 const store = createStore(
   connectRouter(history)(reducers),
-  {},
   composeEnhancers(applyMiddleware(routerMiddleware(history), sagaMiddleware))
 )
 

@@ -1,7 +1,14 @@
 import axios from 'axios'
 
-const postForm = (payload, url) => {
-  axios.post(url, payload)
+const postForm = (url, payload) => {
+  console.log(payload, url)
+  return axios.post(url, JSON.stringify(payload), {
+    headers: {
+      'Content-Type': 'application/json',
+    }
+  })
 }
 
-export default postForm
+export default {
+  postForm
+}

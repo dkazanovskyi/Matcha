@@ -22,7 +22,6 @@ class LoginForm extends React.Component {
 		const key = `open${Date.now()}`
 		const btn = (
 			<Button type="primary" size="small" onClick={() => {
-				action()
 				notification.close(key)}}>
 				Confirm
 			</Button>

@@ -82,13 +82,14 @@ class RegistrationForm extends React.Component {
 	}
 
 	checkExists = (rule, value, callback) => {
+		callback(true)
 		axios.post('/signup/checkExists', {
 			type: rule.field,
 			value: value
 		})
 			.then(response => {
 				if (response.status === 200) {
-					callback()
+					callback(true)
 				} else {
 					callback(false)
 				}
@@ -176,14 +177,8 @@ class RegistrationForm extends React.Component {
 									message: 'Please input your E-mail!',
 									whitespace: false
 								}
-							]},
-						{
-							trigger: 'onBlur',
-							rules: [{
-								validator:  this.checkExists,
-								message: 'This e-mail already exists!',
-							}]
-						}]
+							]}
+						]
 					})(<Input />)}
 				</FormItem>
 				<FormItem
@@ -213,13 +208,7 @@ class RegistrationForm extends React.Component {
 									whitespace: false
 								}
 							]},
-						{
-							trigger: 'onBlur',
-							rules: [{
-								validator:  this.checkExists,
-								message: 'This username already exists!',
-							}]
-						}]
+						]
 					})(<Input />)}
 				</FormItem>
 				<FormItem {...formItemLayout} label="Password">
