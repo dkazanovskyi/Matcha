@@ -15,6 +15,7 @@ router.post('/', (req, res) => {
 			pass: 'Passwordbananka1'
 		}
 	})
+	
 	const newUser = new User({
 			username: path(['body', 'username'], req),
 			email: req.body.email,
