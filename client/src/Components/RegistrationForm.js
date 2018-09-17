@@ -1,10 +1,11 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { Form, Input, Tooltip, Icon, Button , notification } from 'antd'
-import ValidationActions from '../Redux/inputValidator'
+import UserActions from '../Redux/user'
 import axios from 'axios'
 import { withRouter } from 'react-router-dom'
 import { append, propOr } from 'ramda'
+import { showNotification } from './showNotif'
 
 const FormItem = Form.Item
 
@@ -21,24 +22,6 @@ class RegistrationForm extends React.Component {
 		button.disabled = false
 	}
 
-	openNotification = (type, msg, desc, action) => {
-		const key = `open${Date.now()}`
-		const btn = (
-			<Button type="primary" size="small" onClick={() => {
-				action()
-				notification.close(key)}}>
-				Confirm
-			</Button>
-		)
-		notification.open({
-			type: type,
-			message: msg,
-			description: desc,
-			btn,
-			key,
-			onClose: action,
-		})
-	}
 
 	handleSubmit = e => {
 		const button = e.target.querySelector("button")
@@ -46,31 +29,32 @@ class RegistrationForm extends React.Component {
 		this.props.form.validateFieldsAndScroll((err, values) => {
 			if (!err) {
 				button.disabled = true
+				console.log(this.props.registerUser)
+				this.props.registerUser(values, this.actionRedirect, this.actionError(button))
+				/* button.disabled = true
 				axios.post('/signup/', values)
 					.then(response => {
 						if (response.status === 200) {
-							notification.config({ duration: 3 })
 							let msg = "Success registration"
 							let desc = 'Letter confirmation email has been sent. After 3 seconds you will be redirected to the main page.'
-							this.openNotification('success', msg, desc, this.actionRedirect)
+							showNotification('success', msg, desc, this.actionRedirect, 3)
 							setTimeout( this.actionRedirect, 3000)
 						} else {
-							notification.config({ duration: 2 })
 							let msg = "Fetch error"
 							let desc = 'An attempt to contact the database resulted in an error. Try again.\n'+response.data.error
-							this.openNotification('error', msg, desc, this.actionError(button))
+							showNotification('error', msg, desc, this.actionError(button), 2)
 						}
 					}).catch(error => {
 						notification.config({ duration: 2 })
 						let msg = "API error"
 						let desc = 'An attempt to contact the API resulted in an error. Try again.\n'+error
 						this.openNotification('error', msg, desc, this.actionError(button))
-					})
+					}) */
 			} else {
 				notification.config({ duration: 1 })
 				let msg = "Fields error"
 				let desc = 'Fill in all required fields'
-				this.openNotification('warning', msg, desc, this.actionError(button))
+				showNotification('warning', msg, desc, this.actionError(button), 2)
 			}
 		})
 	}
@@ -123,7 +107,7 @@ class RegistrationForm extends React.Component {
 
 	render() {
 		const { getFieldDecorator } = this.props.form
-
+		/* const button = document.querySelector("button") */
 		const formItemLayout = {
 			labelCol: {
 				xs: { span: 24 },
@@ -280,9 +264,9 @@ class RegistrationForm extends React.Component {
 const WrappedRegistrationForm = Form.create()(RegistrationForm)
 
 const mapDispatchToProps = dispatch => {
-	console.log('VALIDATION TYPES', ValidationActions)
+	console.log('VALIDATION TYPES', UserActions)
 	return {
-		validateInput: () => dispatch(ValidationActions.validateInputRequest())
+		registerUser: (payload, actionSuccess, actionFail) => dispatch(UserActions.registerUserRequest(payload, actionSuccess, actionFail))
 	}
 }
 

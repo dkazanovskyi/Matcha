@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 import { Form, Icon, Input, Button, Card, notification} from 'antd'
-import UserActions from '../Redux/createUser'
+import UserActions from '../Redux/user'
 import { append, propOr } from 'ramda'
 import axios from 'axios'
 
