@@ -5,10 +5,9 @@ import Immutable from 'seamless-immutable'
 
 const { Types, Creators } = createActions({
     createUserSuccess: ['payload'],
-    createUserRequest: ['payload'],
+    createUserRequest: ['payload', 'actionSuccess', 'actionFail'],
     createUserFailure: null,
     registerUserRequest: ['payload', 'actionSuccess', 'actionFail'],
-    registerUserEnd: null,
 })
 
 export const UserTypes = Types
@@ -27,18 +26,20 @@ export const INITIAL_STATE = Immutable({
 /* ------------- Reducers ------------- */
 
 export const createUserSuccess = (state, action) => {
-    return state.merge({isFetching: false, user: action.payload})
+  console.log("success", action)
+  return state.merge({isFetching: false,
+    authorizedUser: {
+        data: action.payload,
+        authorize: false
+    }
+  })
 }
 
 export const createUserRequest = (state, action) => {
     return state.merge({isFetching: true})
 }
 
-export const registerUserRequest = (state, action) => {
-    return state.merge({isFetching: true})
-}
-
-export const registerUserEnd = (state, action) => {
+export const createUserFailure = (state, action) => {
     return state.merge({isFetching: false})
 }
 
@@ -46,5 +47,6 @@ export const registerUserEnd = (state, action) => {
 
 export const UserReducer = createReducer(INITIAL_STATE, {
     [Types.CREATE_USER_SUCCESS]: createUserSuccess,
-    [Types.CREATE_USER_REQUEST]: createUserRequest
+    [Types.CREATE_USER_REQUEST]: createUserRequest,
+    [Types.CREATE_USER_FAILURE]: createUserFailure,
 })

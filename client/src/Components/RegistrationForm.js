@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { Form, Input, Tooltip, Icon, Button , notification } from 'antd'
+import { Form, Input, Tooltip, Icon, Button } from 'antd'
 import UserActions from '../Redux/user'
 import axios from 'axios'
 import { withRouter } from 'react-router-dom'
@@ -18,40 +18,23 @@ class RegistrationForm extends React.Component {
 		this.props.history.push("/")
 	}
 
-	actionError = (button) => {
+	actionError = () => {
+		const button = document.querySelector("button")
 		button.disabled = false
+		console.log("DOROU",button, button.disabled)
 	}
 
 
 	handleSubmit = e => {
-		const button = e.target.querySelector("button")
+		const button = document.querySelector("button")
+		button.disabled = true
 		e.preventDefault()
 		this.props.form.validateFieldsAndScroll((err, values) => {
 			if (!err) {
-				button.disabled = true
-				console.log(this.props.registerUser)
-				this.props.registerUser(values, this.actionRedirect, this.actionError(button))
-				/* button.disabled = true
-				axios.post('/signup/', values)
-					.then(response => {
-						if (response.status === 200) {
-							let msg = "Success registration"
-							let desc = 'Letter confirmation email has been sent. After 3 seconds you will be redirected to the main page.'
-							showNotification('success', msg, desc, this.actionRedirect, 3)
-							setTimeout( this.actionRedirect, 3000)
-						} else {
-							let msg = "Fetch error"
-							let desc = 'An attempt to contact the database resulted in an error. Try again.\n'+response.data.error
-							showNotification('error', msg, desc, this.actionError(button), 2)
-						}
-					}).catch(error => {
-						notification.config({ duration: 2 })
-						let msg = "API error"
-						let desc = 'An attempt to contact the API resulted in an error. Try again.\n'+error
-						this.openNotification('error', msg, desc, this.actionError(button))
-					}) */
+				console.log(button, button.disabled)
+				this.props.registerUser(values, this.actionRedirect, this.actionError)
 			} else {
-				notification.config({ duration: 1 })
+				button.disabled = false
 				let msg = "Fields error"
 				let desc = 'Fill in all required fields'
 				showNotification('warning', msg, desc, this.actionError(button), 2)
@@ -82,14 +65,13 @@ class RegistrationForm extends React.Component {
 	}
 
 	checkExists = (rule, value, callback) => {
-		callback(true)
 		axios.post('/signup/checkExists', {
 			type: rule.field,
 			value: value
 		})
 			.then(response => {
 				if (response.status === 200) {
-					callback(true)
+					callback()
 				} else {
 					callback(false)
 				}
@@ -177,8 +159,14 @@ class RegistrationForm extends React.Component {
 									message: 'Please input your E-mail!',
 									whitespace: false
 								}
-							]}
-						]
+							]},
+						{
+							trigger: 'onBlur',
+							rules: [{
+								validator:  this.checkExists,
+								message: 'This e-mail already exists!',
+							}]
+						}]
 					})(<Input />)}
 				</FormItem>
 				<FormItem
@@ -208,7 +196,13 @@ class RegistrationForm extends React.Component {
 									whitespace: false
 								}
 							]},
-						]
+						{
+							trigger: 'onBlur',
+							rules: [{
+								validator:  this.checkExists,
+								message: 'This username already exists!',
+							}]
+						}]
 					})(<Input />)}
 				</FormItem>
 				<FormItem {...formItemLayout} label="Password">

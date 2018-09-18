@@ -5,6 +5,7 @@ export const showNotification = (type, msg, desc, action, duration) => {
   const key = `open${Date.now()}`
   const btn = (
     <Button type="primary" size="small" onClick={() => {
+      action()
       notification.close(key)}}>
       Confirm
     </Button>

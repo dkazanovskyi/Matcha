@@ -1,10 +1,10 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
-import { Form, Icon, Input, Button, Card, notification} from 'antd'
+import { Form, Icon, Input, Button, Card} from 'antd'
 import UserActions from '../Redux/user'
 import { append, propOr } from 'ramda'
-import axios from 'axios'
+import { showNotification } from './showNotif'
 
 const FormItem = Form.Item
 
@@ -14,65 +14,28 @@ class LoginForm extends React.Component {
 		this.props.history.push("/")
 	}
 
-	actionError = (button) => {
+	actionError = () => {
+		const button = document.querySelector("button")
 		button.disabled = false
-	}
-
-	openNotification = (type, msg, desc, action) => {
-		const key = `open${Date.now()}`
-		const btn = (
-			<Button type="primary" size="small" onClick={() => {
-				notification.close(key)}}>
-				Confirm
-			</Button>
-		)
-		notification.open({
-			type: type,
-			message: msg,
-			description: desc,
-			btn,
-			key,
-			onClose: action,
-		})
 	}
 
 	handleSubmit = (e) => {
 		const button = e.target.querySelector("button")
+		button.disabled = true
 		const password = document.getElementById("password")
 		e.preventDefault()
 		this.props.form.validateFieldsAndScroll((err, values) => {
 			if (!err) {
-				button.disabled = true
 				console.log("VALUES", values.userName, password.value)
-				axios.post('/login/', {
+				this.props.createUser({
 					username: values.userName,
 					password: password.value
-				})
-					.then(response => {
-						console.log("RESPONSE", response)
-						if (response.status === 200) {
-							notification.config({ duration: 3 })
-							let msg = "Success authorize"
-							let desc = 'Have fun'
-							this.openNotification('success', msg, desc, this.actionRedirect)
-							setTimeout( this.actionRedirect, 3000)
-						} else {
-							notification.config({ duration: 3 })
-							let msg = response.data.message
-							let desc = 'An attempt to authorize has led to an error. Try again.\n'
-							this.openNotification('error', msg, desc, this.actionError(button))
-						}
-					}).catch(error => {
-						notification.config({ duration: 2 })
-						let msg = "API error"
-						let desc = 'An attempt to contact the API resulted in an error. Try again.\n'+error
-						this.openNotification('error', msg, desc, this.actionError(button))
-					})
+				}, this.actionRedirect, this.actionError)
 			} else {
-				notification.config({ duration: 1 })
+				button.disabled = false
 				let msg = "Fields error"
 				let desc = 'Fill in all required fields'
-				this.openNotification('warning', msg, desc, this.actionError(button))
+				showNotification('warning', msg, desc, this.actionError(button), 1)
 			}
 		})
 	}
@@ -131,7 +94,7 @@ const WrappedLoginForm = Form.create()(LoginForm)
 const mapDispatchToProps = dispatch => {
 	console.log('VALIDATION TYPES', UserActions)
 	return {
-		validateInput: () => dispatch(UserActions.userRequest())
+		createUser: (payload, actionSuccess, actionFail) => dispatch(UserActions.createUserRequest(payload, actionSuccess, actionFail))
 	}
 }
 
