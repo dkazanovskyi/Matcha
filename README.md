@@ -10,8 +10,8 @@ The dating website project using modern web technologies
 
 # TODO
 #### User
-- [ ] User auth
-- [ ] User email confirmation
+- [X] User auth
+- [X] User email confirmation
 #### Profile
 - [ ] User profile page
 - [ ] Modification of profile info
