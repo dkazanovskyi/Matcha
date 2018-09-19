@@ -16,22 +16,19 @@ export default Creators
 /* ------------- Initial State ------------- */
 
 export const INITIAL_STATE = Immutable({
-    isFetching: false,
-    authorizedUser: {
-        data: {},
-        authorize: false
-    }
+    data: {
+        username: ''
+    },
+    authorize: false
   })
 
 /* ------------- Reducers ------------- */
 
 export const createUserSuccess = (state, action) => {
   console.log("success", action)
-  return state.merge({isFetching: false,
-    authorizedUser: {
-        data: action.payload,
-        authorize: false
-    }
+  return state.merge({
+    data: action.payload,
+    authorize: true
   })
 }
 

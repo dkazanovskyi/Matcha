@@ -4,6 +4,7 @@ import 'antd/dist/antd.css'
 import HomePage from './Containers/HomePage'
 import AuthPage from './Containers/AuthPage'
 import VerifyCode from './Components/VerifyCode'
+import GetUser from './Components/GetUser'
 import LoginForm from './Containers/login-form'
 import { Provider } from 'react-redux'
 import store from './Store'
@@ -58,9 +59,7 @@ class App extends React.Component {
             <div>
               {/* <NavBar updateUser={this.updateUser} loggedIn={this.state.loggedIn} /> */}
               {/* greet user if logged in: */}
-              {this.state.loggedIn &&
-                <p>Join the party, {this.state.username}!</p>
-              }
+              <GetUser />
               <Switch>
                 <Route exact path="/" component={ HomePage} />
                 <Route path="/auth" component={AuthPage} />

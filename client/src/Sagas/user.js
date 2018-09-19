@@ -7,6 +7,7 @@ export const createUser = function * (action) {
 	console.log("SAGA Create", Api, action.actionFail, action.payload, action)
 	try {
 		const response = yield call(Api.postForm, '/login/', action.payload)
+		console.log("RESPONSE", response)
 		if (response.status === 200) {
 			let msg = "Success authorize"
 			let desc = 'Have fun'
