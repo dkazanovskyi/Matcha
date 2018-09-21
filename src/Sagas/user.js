@@ -4,10 +4,8 @@ import { showNotification } from '../Components/showNotif'
 import Api from '../api/Api'
 
 export const createUser = function * (action) {
-	console.log("SAGA Create", Api, action.actionFail, action.payload, action)
 	try {
 		const response = yield call(Api.postForm, '/login/', action.payload)
-		console.log("RESPONSE", response)
 		if (response.status === 200) {
 			let msg = "Success authorize"
 			let desc = 'Have fun'
@@ -26,11 +24,9 @@ export const createUser = function * (action) {
 		showNotification('error', msg, desc, action.actionFail, 2)
 		yield put(UserTypes.createUserFailure())
 	}
-	console.log('SAGA')
 }
 
 export const registerUser = function * (action) {
-	console.log("SAGA", Api, action.actionFail, action.payload, action)
 	try {
 		const response = yield call(Api.postForm, '/signup/', action.payload)
 		if (response.status === 200) {
@@ -48,6 +44,4 @@ export const registerUser = function * (action) {
 		let desc = 'An attempt to contact the API resulted in an error. Try again.\n'+error
 		showNotification('error', msg, desc, action.actionFail, 2)
 	}
-	
-	console.log('SAGA')
 }

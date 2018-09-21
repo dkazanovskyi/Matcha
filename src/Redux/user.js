@@ -25,7 +25,6 @@ export const INITIAL_STATE = Immutable({
 /* ------------- Reducers ------------- */
 
 export const createUserSuccess = (state, action) => {
-  console.log("success", action)
   return state.merge({
     data: action.payload,
     authorize: true

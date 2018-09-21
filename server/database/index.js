@@ -1,6 +1,6 @@
-//Connect to Mongo database
 const mongoose = require('mongoose')
 mongoose.Promise = global.Promise
+const tracer = require('tracer').colorConsole()
 
 //your local database url
 //27017 is the default mongoDB port
@@ -8,14 +8,11 @@ const uri = 'mongodb://localhost:27017/matcha'
 mongoose.set('useFindAndModify', false)
 
 mongoose.connect(uri, {useNewUrlParser: true }).then(
-  () => { 
-    /** ready to use. The `mongoose.connect()` promise resolves to undefined. */ 
-    console.log('Connected to Mongo')
+  () => {
+    tracer.trace('Connected to Mongo')
   },
   err => {
-    /** handle initial connection error */ 
-    console.log('error connecting to Mongo: ')
-    console.log(err)
+    tracer.error('\nerror connecting to Mongo: \n', err)
   }
 )
 

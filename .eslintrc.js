@@ -8,7 +8,7 @@ module.exports = {
   },
   rules: {
     'jsx-quotes': [1, 'prefer-double'],
-    'no-console': 0,
+    'no-console': 1,
     CamelCase: {
       properties: 'always',
       ignoreDestructuring: true

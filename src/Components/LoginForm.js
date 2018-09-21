@@ -26,7 +26,6 @@ class LoginForm extends React.Component {
 		e.preventDefault()
 		this.props.form.validateFieldsAndScroll((err, values) => {
 			if (!err) {
-				console.log("VALUES", values.userName, password.value)
 				this.props.createUser({
 					username: values.userName,
 					password: password.value
@@ -92,7 +91,6 @@ class LoginForm extends React.Component {
 const WrappedLoginForm = Form.create()(LoginForm)
 
 const mapDispatchToProps = dispatch => {
-	console.log('VALIDATION TYPES', UserActions)
 	return {
 		createUser: (payload, actionSuccess, actionFail) => dispatch(UserActions.createUserRequest(payload, actionSuccess, actionFail))
 	}

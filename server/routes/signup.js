@@ -1,5 +1,5 @@
 const path = require('ramda').path
-
+const tracer = require('tracer').colorConsole()
 const express = require('express')
 const router = express.Router()
 const User = require('../database/models/user')
@@ -45,8 +45,6 @@ router.post('/', (req, res) => {
 		transporter.sendMail(mailOptions, function(err, res) {
 			if (err) {
 				return res.status(203).json(err)
-			} else {
-				console.log('here is the res: ', res)
 			}
 		})
 		res.json(savedUser)
@@ -56,14 +54,13 @@ router.post('/', (req, res) => {
 
 
 router.post('/checkExists', (req, res, next) => {
-	console.log("TUTT ", req.body.type, path(['body', 'type'], req))
 		if (req.body.type === 'username') {
 			User.findOne({ username: req.body.value }, (err, user) => {
 				if (err) {
-						console.log('User.js post error: ', err)
+					tracer.error('User.js post error: ', err)
 				} else if (user) {
 						res.status(203).json({
-								error: `Sorry, already a user with the username: ${req.body.value}`
+							error: `Sorry, already a user with the username: ${req.body.value}`
 						})
 				} else {
 					res.json({msg: 'Check usename: OK'})
@@ -72,10 +69,10 @@ router.post('/checkExists', (req, res, next) => {
 		} else if (req.body.type === 'email') {
 			User.findOne({ email: req.body.value }, (err, user) => {
 				if (err) {
-						console.log('User.js post error: ', err)
+					tracer.error('User.js post error: ', err)
 				} else if (user) {
 						res.status(203).json({
-								error: `Sorry, already a user with the email: ${req.body.value}`
+							error: `Sorry, already a user with the email: ${req.body.value}`
 						})
 				} else {
 					res.json({msg: 'Check usename: OK'})
@@ -87,14 +84,14 @@ router.post('/checkExists', (req, res, next) => {
 router.post('/mail_verify', (req, res, next) => {
 	verifCode.findOne({ verifCode: req.body.code }, (err, note) => {
 		if (err) {
-				console.log('VerifCode.js post error: ', err)
+			tracer.error('VerifCode.js post error: ', err)
 		} else if (note) {
 				const username = note.username
 				User.updateOne({ username: username }, { $set: { verifStatus: true }}, function (err, raw) {
-					if (err) console.log('VerifCode.js update error: ', err)
+					if (err) tracer.error('VerifCode.js update error: ', err)
 				})
 				verifCode.deleteOne({ verifCode: req.body.code }, function (err) {
-					if (err) console.log('VerifCode.js delete error: ', err)
+					if (err) tracer.error('VerifCode.js delete error: ', err)
 				})
 				res.json({msg: 'Check usename: OK'})
 		} else {

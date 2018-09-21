@@ -21,7 +21,6 @@ class RegistrationForm extends React.Component {
 	actionError = () => {
 		const button = document.querySelector("button")
 		button.disabled = false
-		console.log("DOROU",button, button.disabled)
 	}
 
 
@@ -31,7 +30,6 @@ class RegistrationForm extends React.Component {
 		e.preventDefault()
 		this.props.form.validateFieldsAndScroll((err, values) => {
 			if (!err) {
-				console.log(button, button.disabled)
 				this.props.registerUser(values, this.actionRedirect, this.actionError)
 			} else {
 				button.disabled = false
@@ -247,7 +245,6 @@ class RegistrationForm extends React.Component {
 const WrappedRegistrationForm = Form.create()(RegistrationForm)
 
 const mapDispatchToProps = dispatch => {
-	console.log('VALIDATION TYPES', UserActions)
 	return {
 		registerUser: (payload, actionSuccess, actionFail) => dispatch(UserActions.registerUserRequest(payload, actionSuccess, actionFail))
 	}

@@ -5,6 +5,7 @@ const session = require('express-session')
 const dbConnection = require('./database') 
 const MongoStore = require('connect-mongo')(session)
 const passport = require('./passport')
+const tracer = require('tracer').colorConsole()
 const app = express()
 const PORT = 5000
 // Route requires
@@ -12,9 +13,7 @@ const PORT = 5000
 
 // MIDDLEWARE
 app.use(morgan('dev'))
-/* app.use((req, res) => {
-	console.log(req.url)
-}) */
+
 app.use(
 	bodyParser.urlencoded({
 		extended: false
@@ -42,5 +41,5 @@ require('./routes/index')(app)
 
 // Starting Server 
 app.listen(PORT, () => {
-	console.log(`App listening on PORT: ${PORT}`)
+	tracer.info(`App listening on PORT: ${PORT}`)
 })

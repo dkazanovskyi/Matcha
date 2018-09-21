@@ -1,25 +1,22 @@
 const passport = require('passport')
 const LocalStrategy = require('./localStrategy')
 const User = require('../database/models/user')
+const tracer = require('tracer').colorConsole()
 
 // called on login, saves the id to session req.session.passport.user = {id:'..'}
 passport.serializeUser((user, done) => {
-	console.log('*** serializeUser called, user: ')
-	console.log(user) // the whole raw user object!
-	console.log('---------')
+	tracer.info('\n*** serializeUser called, user: ./\n', user, '\n---------')
 	done(null, { _id: user._id })
 })
 
 // user object attaches to the request as req.user
 passport.deserializeUser((id, done) => {
-	console.log('DeserializeUser called')
+	tracer.info('DeserializeUser called')
 	User.findOne(
 		{ _id: id },
 		'username',
 		(err, user) => {
-			console.log('*** Deserialize user, user:')
-			console.log(user)
-			console.log('--------------')
+			tracer.info('\n*** Deserialize user, user:\n', user, '\n---------')
 			done(null, user)
 		}
 	)

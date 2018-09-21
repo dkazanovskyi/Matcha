@@ -9,7 +9,6 @@ const { Header, Content, Footer } = Layout
 class AuthPage extends React.Component {
 
 	actionRedirect = () => {
-		console.log("DAROVAAA")
 		this.props.history.push("/")
 	}
 
@@ -38,7 +37,6 @@ class AuthPage extends React.Component {
 			code: this.props.match.params.code
 		})
 			.then(response => {
-				console.log("RESPONSE", response)
 				if (response.status === 200) {
 					
 					let msg = "Success verify"
@@ -58,7 +56,6 @@ class AuthPage extends React.Component {
 	}
 
 	render() {
-		console.log("Darova")
 		return (
 			<Layout>
         <Header style={{ color: 'white' }}>Matcha</Header>

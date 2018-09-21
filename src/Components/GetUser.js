@@ -11,17 +11,13 @@ class GetUser extends Component {
   }
   getUser = () => {
     axios.get('/user/').then(response => {
-      console.log('Get user response: ')
-      console.log(response.data)
       if (response.data.user) {
-        console.log('Get User: There is a user saved in the server session: ')
         this.props.createUser(response.data.user)
       }
     })
   }
 
   render() {
-    console.log("STAET", this.props.user)
     return (
       <div>
         {this.props.user.authorize &&
