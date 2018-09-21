@@ -11,7 +11,8 @@ const FormItem = Form.Item
 
 class RegistrationForm extends React.Component {
 	state = {
-		confirmDirty: false
+		confirmDirty: false,
+		buttonDisabled: false
 	}
 
 	actionRedirect = () => {
@@ -19,23 +20,21 @@ class RegistrationForm extends React.Component {
 	}
 
 	actionError = () => {
-		const button = document.querySelector("button")
-		button.disabled = false
+		this.setState({ buttonDisabled: false })
 	}
 
 
 	handleSubmit = e => {
-		const button = document.querySelector("button")
-		button.disabled = true
+		this.setState({ buttonDisabled: true })
 		e.preventDefault()
 		this.props.form.validateFieldsAndScroll((err, values) => {
 			if (!err) {
 				this.props.registerUser(values, this.actionRedirect, this.actionError)
 			} else {
-				button.disabled = false
+				this.setState({ buttonDisabled: false })
 				let msg = "Fields error"
 				let desc = 'Fill in all required fields'
-				showNotification('warning', msg, desc, this.actionError(button), 2)
+				showNotification('warning', msg, desc, this.actionError, 2)
 			}
 		})
 	}
@@ -81,14 +80,13 @@ class RegistrationForm extends React.Component {
 	validateUsername = (rule, value, cb) => {
 		let errors = []
 
-		errors = propOr(0, 'length', value) < 3 ? append(new Error('Username should be at least 6 characters !'), errors) : errors
+		errors = propOr(0, 'length', value) < 3 ? append(new Error('Username should be at least 3 characters !'), errors) : errors
 		setTimeout(() => cb(errors), 1000)
 		return 
 	}
 
 	render() {
 		const { getFieldDecorator } = this.props.form
-		/* const button = document.querySelector("button") */
 		const formItemLayout = {
 			labelCol: {
 				xs: { span: 24 },
@@ -234,7 +232,7 @@ class RegistrationForm extends React.Component {
 					})(<Input type="password" onBlur={this.handleConfirmBlur} />)}
 				</FormItem>
 				<FormItem {...tailFormItemLayout}>
-					<Button type="primary" htmlType="submit" >
+					<Button type="primary" htmlType="submit" disabled={this.state.buttonDisabled}>
 						Register
 					</Button>
 				</FormItem>

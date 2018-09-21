@@ -10,28 +10,30 @@ const FormItem = Form.Item
 
 class LoginForm extends React.Component {
 	
+	state = {
+		buttonDisabled: false
+	}
+
 	actionRedirect = () => {
 		this.props.history.push("/")
 	}
 
 	actionError = () => {
-		const button = document.querySelector("button")
-		button.disabled = false
+		this.setState({ buttonDisabled: false })
 	}
 
 	handleSubmit = (e) => {
 		const button = e.target.querySelector("button")
-		button.disabled = true
-		const password = document.getElementById("password")
+		this.setState({ buttonDisabled: true })
 		e.preventDefault()
 		this.props.form.validateFieldsAndScroll((err, values) => {
 			if (!err) {
 				this.props.createUser({
 					username: values.userName,
-					password: password.value
+					password: this.props.form.getFieldValue('password')
 				}, this.actionRedirect, this.actionError)
 			} else {
-				button.disabled = false
+				this.setState({ buttonDisabled: false })
 				let msg = "Fields error"
 				let desc = 'Fill in all required fields'
 				showNotification('warning', msg, desc, this.actionError(button), 1)
@@ -76,7 +78,7 @@ class LoginForm extends React.Component {
 							<Input prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />} type="password" placeholder="Password" id="password"/>
 					</FormItem>
 					<FormItem {...formItemLayout}>
-						<Button type="primary" htmlType="submit" className="login-form-button" style={{width: '100%'}}>
+						<Button type="primary" htmlType="submit" className="login-form-button" style={{width: '100%'}} disabled={this.state.buttonDisabled}>
 							Log in
 						</Button>
 						<a className="login-form-forgot" href="" style={{ float: 'left' }}>Forgot password</a>
