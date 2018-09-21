@@ -17,7 +17,7 @@ class App extends React.Component {
     return (
       <div className="App">
         <Provider store={store}>
-          <ConnectedRouter history={history}>
+          <ConnectedRouter history={history}> 
             <div>
               <GetUser />
               <Switch>
