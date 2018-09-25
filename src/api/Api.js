@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const postForm = (url, payload) => {
+export const postForm = (url, payload) => {
   return axios.post(url, JSON.stringify(payload), {
     headers: {
       'Content-Type': 'application/json',
@@ -8,6 +8,6 @@ const postForm = (url, payload) => {
   })
 }
 
-export default {
-  postForm
+export const getRoute = (url) => {
+  return axios.get(url)
 }

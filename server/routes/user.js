@@ -3,7 +3,7 @@ const router = express.Router()
 const tracer = require('tracer').colorConsole()
 
 router.get('/', (req, res, next) => {
-  tracer.debug('\n===== user!!======\n', req.user)
+  tracer.info('\n===== user!!======\n', req.user)
   if (req.user) {
       res.json({ user: req.user })
   } else {

@@ -1,10 +1,11 @@
 import { call, put } from 'redux-saga/effects'
 import UserTypes from '../Redux/user'
 import { showNotification } from '../Components/showNotif'
-import Api from '../api/Api'
+import * as Api from '../api/Api'
 
 export const createUser = function * (action) {
 	try {
+		console.log("Login", action.payload)
 		const response = yield call(Api.postForm, '/login/', action.payload)
 		if (response.status === 200) {
 			let msg = "Success authorize"
@@ -27,6 +28,7 @@ export const createUser = function * (action) {
 }
 
 export const registerUser = function * (action) {
+	console.log("YOBA BOBA");
 	try {
 		const response = yield call(Api.postForm, '/signup/', action.payload)
 		if (response.status === 200) {

@@ -2,7 +2,7 @@ import React from 'react'
 import { Layout, Row, Col } from 'antd'
 import RegistrationForm from '../Components/RegistrationForm.js'
 import LoginForm from '../Components/LoginForm.js'
-import { Route, Switch } from 'react-router-dom'
+import { Route, Switch, Link } from 'react-router-dom'
 
 const { Header, Content, Footer } = Layout
 
@@ -14,7 +14,7 @@ class AuthPage extends React.Component {
   render() {
     return (
       <Layout>
-        <Header style={{ color: 'white' }}>Matcha</Header>
+        <Header style={{ color: 'white' }}><Link to="/" >Matcha </Link> </Header>
         <Content style={{ padding: '50px 0', backgroundColor: '#fff' }}>
           <Row>
             <Col span={12} offset={6}>
