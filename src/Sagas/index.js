@@ -6,7 +6,7 @@ import { UserTypes } from '../Redux/user'
 
 /* ------------- Sagas ------------- */
 
-import { createUser, registerUser } from './user'
+import { createUser, registerUser, verifyCode, logout } from './user'
 import { sendRoute } from './router'
 
 export default function * root () {
@@ -14,5 +14,7 @@ export default function * root () {
 		takeEvery('@@router/LOCATION_CHANGE', sendRoute),
 		takeEvery(UserTypes.CREATE_USER_REQUEST, createUser),
 		takeEvery(UserTypes.REGISTER_USER_REQUEST, registerUser),
+		takeEvery(UserTypes.VERIFY_CODE_REQUEST, verifyCode),
+		takeEvery(UserTypes.LOGOUT_REQUEST, logout),
 	])
 }

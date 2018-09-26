@@ -8,6 +8,8 @@ const { Types, Creators } = createActions({
     createUserRequest: ['payload', 'actionSuccess', 'actionFail'],
     createUserFailure: null,
     registerUserRequest: ['payload', 'actionSuccess', 'actionFail'],
+    verifyCodeRequest: ['payload', 'actionRedirect'],
+    logoutRequest: null,
 })
 
 export const UserTypes = Types

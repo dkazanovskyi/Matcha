@@ -23,7 +23,6 @@ class LoginForm extends React.Component {
 	}
 
 	handleSubmit = (e) => {
-		const button = e.target.querySelector("button")
 		this.setState({ buttonDisabled: true })
 		e.preventDefault()
 		this.props.form.validateFieldsAndScroll((err, values) => {
@@ -36,7 +35,7 @@ class LoginForm extends React.Component {
 				this.setState({ buttonDisabled: false })
 				let msg = "Fields error"
 				let desc = 'Fill in all required fields'
-				showNotification('warning', msg, desc, this.actionError(button), 1)
+				showNotification('warning', msg, desc, this.actionError, 1)
 			}
 		})
 	}

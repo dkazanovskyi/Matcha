@@ -9,12 +9,17 @@ const guestRoutes = [
 
 const authRoutes = [
   '/profile/',
+  '/user/logout'
   ]
 
 const allRoutes = [
   '/user/',
   '/'
   ]
+
+const workRoutes = [
+  '/user/logout'
+]
 
 router.use(function timeLog(req, res, next) {
   tracer.debug('Time: ', req.url, '-----', req.method)
@@ -30,7 +35,7 @@ router.use(function timeLog(req, res, next) {
       }
       else res.end()
     }
-    if (authRoutes.find((element) => {
+    else if (authRoutes.find((element) => {
       return element === req.url
     })){
       console.log("AUTH", req.user);
@@ -38,16 +43,24 @@ router.use(function timeLog(req, res, next) {
         res.status(203).json({user: 'guest', message: 'Log in to view this page'})
         res.end()
       }
-      else res.end()
+      else {
+        if (workRoutes.find((element) => {
+          return element === req.url
+        })) { console.log("WORK")
+          next()}
+        else res.end()
+      }
     }
-    if (allRoutes.find((element) => {
+    else if (allRoutes.find((element) => {
       return element === req.url
     })){
       console.log("ALL");
       next()
     }
+    else {console.log("OTHER");
+      res.status(204).end()}
   }
-  next()
+  else next()
 });
 
 module.exports = router

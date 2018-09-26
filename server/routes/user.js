@@ -11,12 +11,15 @@ router.get('/', (req, res, next) => {
   }
 })
 
-router.post('/logout', (req, res) => {
+router.get('/logout', (req, res) => {
+    console.log("LOGOUT");
     if (req.user) {
         req.logout()
-        res.send({ msg: 'logging out' })
+        req.session.destroy()
+		res.clearCookie('connect.sid')
+        res.json({ msg: 'Logging out' })
     } else {
-        res.send({ msg: 'no user to log out' })
+        res.status(203).json({ msg: 'No user to log out' })
     }
 })
 

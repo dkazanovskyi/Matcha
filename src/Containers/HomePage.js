@@ -1,15 +1,25 @@
 import React, { Component } from 'react'
 import { Layout, Menu, Icon } from 'antd'
 import { NavLink } from 'react-router-dom'
+import { connect } from 'react-redux'
+import UserActions from '../Redux/user'
 const { Sider } = Layout
+
 class HomePage extends Component {
   state = {}
+  onClick = (info) => {
+    console.log('click ', info, this.props);
+    if (info.key === "6") {
+      this.props.logout()
+    }
+  }
+
   render() {
     return (
       <Layout style={{ minHeight: '100vh' }}>
         <Sider>
           <div className="logo" />
-          <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline">
+          <Menu onClick={this.onClick}  theme="dark" defaultSelectedKeys={['1']} mode="inline">
             <Menu.Item key="1">
               <Icon type="profile" />
               <span>Profile</span>
@@ -34,6 +44,10 @@ class HomePage extends Component {
               <span>Login</span>
               <NavLink to="/auth/login" />
             </Menu.Item>
+            <Menu.Item key="6">
+              <Icon type="form" />
+              <span>Logout</span>
+            </Menu.Item>
           </Menu>
         </Sider>
       </Layout>
@@ -41,4 +55,10 @@ class HomePage extends Component {
   }
 }
 
-export default HomePage
+const mapDispatchToProps = dispatch => {
+	return {
+		logout: () => dispatch(UserActions.logoutRequest())
+	}
+}
+
+export default connect(null, mapDispatchToProps)(HomePage)
