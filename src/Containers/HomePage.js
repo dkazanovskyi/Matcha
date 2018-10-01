@@ -34,6 +34,11 @@ class HomePage extends Component {
               <span>Login</span>
               <NavLink to="/auth/login" />
             </Menu.Item>
+            <Menu.Item key="5">
+              <Icon type="form" />
+              <span>ProfilePage</span>
+              <NavLink to="/profile" />
+            </Menu.Item>
           </Menu>
         </Sider>
       </Layout>
