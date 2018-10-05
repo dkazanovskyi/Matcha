@@ -25,8 +25,10 @@
     "react": "^16.4.2",
     "react-app-rewire-less": "^2.1.2",
     "react-app-rewired": "^1.5.2",
+    "react-chat-elements": "^10.0.5",
     "react-css-loaders": "0.0.5",
     "react-dom": "^16.4.2",
+    "react-native-vector-icons": "^6.0.1",
     "react-redux": "^5.0.7",
     "react-router": "^4.3.1",
     "react-router-dom": "^4.3.1",
@@ -35,6 +37,8 @@
     "redux-saga": "^0.16.0",
     "reduxsauce": "^1.0.0",
     "seamless-immutable": "^7.1.4",
+    "socket.io": "^2.1.1",
+    "socket.io-client": "^2.1.1",
     "tracer": "^0.9.1"
   },
   "scripts": {
@@ -42,15 +46,15 @@
     "build": "react-app-rewired build",
     "test": "react-app-rewired test --env=jsdom",
     "eject": "react-scripts eject",
-    "client": "yarn start",
+    "client": "npm run start",
     "server": "nodemon server/server.js",
-    "dev": "concurrently -k --kill-others-on-fail \"yarn server\" \"yarn client\""
+    "dev": "concurrently -k --kill-others-on-fail \"npm run server\" \"npm run client\""
   },
   "proxy": "http://localhost:5000/",
   "devDependencies": {
     "babel-eslint": "8",
     "babel-plugin-import": "^1.8.0",
-    "concurrently": "^3.5.0",
+    "concurrently": "^3.6.1",
     "eslint": "^5.3.0",
     "eslint-config-prettier": "^2.9.0",
     "eslint-plugin-prettier": "^2.6.2",

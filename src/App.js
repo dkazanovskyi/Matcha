@@ -10,10 +10,13 @@ import store from './Store'
 import { Route, Switch } from 'react-router-dom'
 import { ConnectedRouter } from 'connected-react-router'
 import { history } from './Store'
+import io from 'socket.io-client'
+import 'react-chat-elements/dist/main.css';
 
 class App extends React.Component {
 
   render() {
+    const socket = io.connect('http://localhost:5000')
     return (
       <div className="App">
         <Provider store={store}>
