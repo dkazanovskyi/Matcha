@@ -9,6 +9,7 @@ class GetUser extends Component {
   componentDidMount() {
     this.getUser()
   }
+
   getUser = () => {
     axios.get('/user/').then(response => {
       if (response.data.user) {

@@ -4,7 +4,6 @@ import RegistrationForm from '../Components/RegistrationForm.js'
 import LoginForm from '../Components/LoginForm.js'
 import ForgotForm from '../Components/ForgotForm.js'
 import RecoveryForm from '../Components/RecoveryForm'
-import ChatPage from '../Components/ChatPage'
 import { Route, Switch, Link } from 'react-router-dom'
 
 const { Header, Content, Footer } = Layout
@@ -12,7 +11,7 @@ const { Header, Content, Footer } = Layout
 class AuthPage extends React.Component {
   constructor(props) {
     super(props)
-    this.state = {}
+    this.state = {} 
   }
   render() {
     return (
@@ -26,7 +25,6 @@ class AuthPage extends React.Component {
                 <Route exact path="/auth/login" component={LoginForm} />
                 <Route exact path="/auth/forgot" component={ForgotForm} />
                 <Route exact path="/auth/recovery/:code" component={RecoveryForm}/>
-                <Route exact path="/auth/chat/:user" component={ChatPage}/>
                 <Route render={() => <div>Not Found</div>} />
               </Switch>
             </Col>

@@ -5,6 +5,7 @@ import HomePage from './Containers/HomePage'
 import AuthPage from './Containers/AuthPage'
 import VerifyCode from './Components/VerifyCode'
 import GetUser from './Components/GetUser'
+import ConnectChat from './Containers/ConnectChat'
 import { Provider } from 'react-redux'
 import store from './Store'
 import { Route, Switch } from 'react-router-dom'
@@ -28,6 +29,7 @@ class App extends React.Component {
                 <Route path="/auth" component={AuthPage} />
                 <Route path="/profile" component={ HomePage} />
                 <Route path="/signup/mail_verify/:code" component={VerifyCode}/>
+                <Route exact path="/chat/:user" component={ConnectChat}/>
                 <Route render={() => <div>Not Found</div>} />
               </Switch>
             </div>

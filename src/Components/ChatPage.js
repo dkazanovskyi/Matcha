@@ -1,53 +1,57 @@
 import React from 'react'
 import { SpinLoader } from 'react-css-loaders'
-import { Form, Icon, Input, Button, Card} from 'antd'
 import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 import UserActions from '../Redux/user'
-import { MessageList } from 'react-chat-elements'
+import { MessageList, MessageBox } from 'react-chat-elements'
+import { Layout, Row, Col, Card} from 'antd'
+import { Link } from 'react-router-dom'
+import '../index.css'
+
+const { Header, Content, Footer } = Layout
+
 
 
 class ChatPage extends React.Component {
 
 	componentDidMount() {
-		this.props.verifyCode({
-			code: this.props.match.params.code
-		}, this.actionRedirect)
+		console.log("SCROLL", this.panel);
+		this.panel.scrollTo(0, this.panel.scrollHeight)
 	}
 
 	render() {
 		return (
-			<Card title="Forgot">
-				<MessageList
-                    className='message-list'
-                    lockable={true}
-                    toBottomHeight={'100%'}
-                    dataSource={[
-                        {
-                            position: 'right',
-                            type: 'text',
-                            text: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
-                            date: new Date(),
-                        },
-                        {
-                            position: 'left',
-                            type: 'text',
-                            text: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
-                            date: new Date(),
-                        },{
-                            position: 'left',
-                            type: 'text',
-                            text: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
-                            date: new Date(),
-                        },{
-                            position: 'right',
-                            type: 'text',
-                            text: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
-                            date: new Date(),
-                        },
-                    ]} />
-			</Card>
-			
+      <Card  title="Forgot" >
+        <div ref={(panel) => { this.panel = panel }} className='chat'>
+          <MessageList
+          className='message-list'
+          lockable={true}
+          dataSource={[
+            {
+              position: 'right',
+              type: 'text',
+              text: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
+              date: new Date(),
+            },
+            {
+              position: 'left',
+              type: 'text',
+              text: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
+              date: new Date(),
+            },{
+              position: 'left',
+              type: 'text',
+              text: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
+              date: new Date(),
+            },{
+              position: 'right',
+              type: 'text',
+              text: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
+              date: new Date(),
+            },
+          ]} />
+        </div>
+      </Card>
 		)
 	}
 }
