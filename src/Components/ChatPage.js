@@ -25,6 +25,7 @@ class ChatPage extends React.Component {
 
 	onSubmit = () => {
 		console.log("DOEORO", this.input.value)
+		this.refs.input.clear()
 	}
 
 	render() {
@@ -60,16 +61,15 @@ class ChatPage extends React.Component {
 			multiline={true}
 			maxlength = {300}
 			ref='input'
-			inputRef={(elem) => {this.input = elem}}
+			inputRef={(input) => {this.input = input}}
 			onKeyPress={(e) => {
 				if (e.shiftKey && e.charCode === 13) {
-						return true;
+						return true
 				}
 				if (e.charCode === 13) {
-						this.refs.input.clear();
-						this.onSubmit();
-						e.preventDefault();
-						return false;
+						this.onSubmit()
+						e.preventDefault()
+						return false
 				}
 			}}
 			rightButtons={
