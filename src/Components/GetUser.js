@@ -40,7 +40,13 @@ class GetUser extends Component {
       </div>
     )
     else return (
-      <SpinLoader color="#006B50"/>
+      <Switch>
+          <Route exact path="/" component={ HomePage} />
+          <Route path="/auth" component={AuthPage} />
+          <Route path="/signup/mail_verify/:code" component={VerifyCode}/>
+          <Route render={() => <div>Not Found</div>} />
+      </Switch>
+      /* <SpinLoader color="#006B50"/> */
     )
   }
 }

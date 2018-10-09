@@ -15,6 +15,7 @@
     "express-session": "^1.15.6",
     "history": "^4.7.2",
     "md5": "^2.2.1",
+    "moment": "^2.22.2",
     "mongodb": "^3.1.4",
     "mongoose": "5.2.8",
     "morgan": "^1.9.0",
