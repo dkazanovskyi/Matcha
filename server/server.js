@@ -49,6 +49,11 @@ io = socket(server);
 
 io.on('connection', (socket) => {
 	console.log("Hello socket", socket.id);
+	socket.on('chat message', function(msg){
+		console.log("MESSSSAGE", msg)
+		socket.emit('your message', msg);
+		socket.broadcast.emit('chat message', msg);
+	});
 	socket.on('disconnect', function(){
 		console.log('user disconnected');
 	});

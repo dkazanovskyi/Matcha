@@ -8,29 +8,21 @@ import { Layout, Row, Col, Card} from 'antd'
 import { Link } from 'react-router-dom'
 import '../index.css'
 import  moment  from 'moment'
+import io from 'socket.io-client'
 
-
-
+const socket = io.connect('http://localhost:5000')
 
 class ChatPage extends React.Component {
 
-	componentDidMount() {
-		console.log("SCROLL", this.props);
-		this.props.fetchChat({
-			recipient: this.props.match.params.user,
-			sender: this.props.sender
-		})
-		this.panel.scrollTo(0, this.panel.scrollHeight)
+	constructor(props) {
+		super(props)
+		this.state = {
+			messages: []
+		}
 	}
 
-	onSubmit = () => {
-		console.log("DOEORO", this.input.value)
-		this.refs.input.clear()
-	}
-
-	render() {
-		console.log("MESSAGES", this.props.messages)
-		const msgArr = this.props.messages.map((item, i, arr) => {
+	initMessageHistory = (history) => {
+		const msgArr = history.map((item, i, arr) => {
 			/* console.log(moment(item.createdAt).fromNow(), new Date()) */
 			let msgItem = {
 				position: item.sender === this.props.sender ? 'right' : 'left',
@@ -40,6 +32,43 @@ class ChatPage extends React.Component {
 			}
 			return msgItem
 		})
+		this.setState({messages: msgArr})
+	}
+
+	updateMessageHistory = (msg) => {
+		let msgItem = {
+			position: msg.sender === this.props.sender ? 'right' : 'left',
+			type: 'text',
+			text: msg.msg,
+			dateString: moment(new Date()).fromNow(),
+		}
+		let messages = this.state.messages
+		messages.push(msgItem)
+		console.log("MESSSAGES---------", messages, this.state.messages)
+		/* this.setState({messages: messages}) */
+	}
+
+	componentDidMount() {
+		this.props.fetchChat({
+			recipient: this.props.match.params.user,
+			sender: this.props.sender
+		}, this.initMessageHistory)
+		this.panel.scrollTo(0, this.panel.scrollHeight)
+	}
+
+	onSubmit = () => {
+		console.log("DOEORO", this.input.value)
+		socket.emit('chat message', { msg: this.input.value,
+			sender: this.props.sender});
+		this.refs.input.clear()
+	}
+
+	render() {
+		console.log("MESSAGES", this.state.messages)
+		
+		
+		socket.on('your message', this.updateMessageHistory)
+		socket.on('chat message', this.updateMessageHistory);
 		return (
 			<div>
 			<Card  title="Forgot" >
@@ -47,7 +76,7 @@ class ChatPage extends React.Component {
 					<MessageList
 					className='message-list'
 					lockable={true}
-					dataSource={msgArr} />
+					dataSource={this.state.messages} />
 					
 				</div>
 			</Card>
@@ -91,7 +120,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = dispatch => {
 	return {
-		fetchChat: (payload) => dispatch(ChatActions.fetchChatRequest(payload))
+		fetchChat: (payload, initMessageHistory) => dispatch(ChatActions.fetchChatRequest(payload, initMessageHistory))
 	}
 }
 

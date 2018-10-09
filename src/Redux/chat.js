@@ -5,7 +5,7 @@ import Immutable from 'seamless-immutable'
 
 const { Types, Creators } = createActions({
 	fetchChatSuccess: ['payload'],
-	fetchChatRequest: ['payload'],
+	fetchChatRequest: ['payload', 'initMessageHistory'],
 	fetchChatFailure: null,
 })
 

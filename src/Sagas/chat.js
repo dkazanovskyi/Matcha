@@ -8,6 +8,7 @@ export const fecthChat = function * (action) {
 		const response = yield call(Api.postForm, '/chat/', action.payload)
 		if (response.status === 200) {
 			console.log("Success fetch")
+			action.initMessageHistory(response.data)
 			yield put(ChatTypes.fetchChatSuccess(response.data))
 		}
 		else {
