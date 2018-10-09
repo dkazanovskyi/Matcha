@@ -6,10 +6,7 @@ import { Route, Switch, Link } from 'react-router-dom'
 const { Header, Content, Footer } = Layout
 
 class ConnectChat extends React.Component {
-	constructor(props) {
-		super(props)
-		this.state = {} 
-	}
+
 	render() {
 		return (
 			<Layout>
@@ -19,12 +16,12 @@ class ConnectChat extends React.Component {
 						<Col span={12} offset={6}>
 							<ChatPage />
 						</Col>
-          </Row>
-        </Content>
-        <Footer theme="dark" style={{ textAlign: 'center' }}>
-          Matcha Project ©2018 Created by @drenkas & @dkazanov
-        </Footer>
-      </Layout>
+					</Row>
+				</Content>
+				<Footer theme="dark" style={{ textAlign: 'center' }}>
+					Matcha Project ©2018 Created by @drenkas & @dkazanov
+				</Footer>
+			</Layout>
 		)
 	}
 }

@@ -2,20 +2,23 @@ import React from 'react'
 import { SpinLoader } from 'react-css-loaders'
 import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
-import UserActions from '../Redux/user'
+import ChatActions from '../Redux/chat'
 import { MessageList, MessageBox } from 'react-chat-elements'
 import { Layout, Row, Col, Card} from 'antd'
 import { Link } from 'react-router-dom'
 import '../index.css'
 
-const { Header, Content, Footer } = Layout
 
 
 
 class ChatPage extends React.Component {
 
 	componentDidMount() {
-		console.log("SCROLL", this.panel);
+    console.log("SCROLL", this.props);
+    this.props.fetchChat({
+      recipient: this.props.match.params.user,
+      sender: this.props.sender
+    })
 		this.panel.scrollTo(0, this.panel.scrollHeight)
 	}
 
@@ -56,11 +59,16 @@ class ChatPage extends React.Component {
 	}
 }
 
+const mapStateToProps = (state) => ({
+  messages: state.chat.messages,
+  sender: state.user.data.username
+})
+
 const mapDispatchToProps = dispatch => {
 	return {
-		verifyCode: (payload, actionRedirect) => dispatch(UserActions.verifyCodeRequest(payload, actionRedirect))
+		fetchChat: (payload) => dispatch(ChatActions.fetchChatRequest(payload))
 	}
 }
 
 export default withRouter( 
-	connect(null, mapDispatchToProps)(ChatPage))
+	connect(mapStateToProps, mapDispatchToProps)(ChatPage))
