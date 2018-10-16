@@ -7,6 +7,7 @@ const { Types, Creators } = createActions({
 	fetchChatSuccess: ['payload'],
 	fetchChatRequest: ['payload', 'initMessageHistory'],
 	fetchChatFailure: null,
+	saveMsg: ['payload'],
 })
 
 export const ChatTypes = Types

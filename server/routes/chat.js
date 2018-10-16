@@ -9,9 +9,8 @@ router.post(
 	function (req, res, next) {
 		console.log("CHAT RESPONSE", req.body)
 		if (req.user.username === req.body.recipient) {
-			res.status(203).end() // redirects you to your profile page
+			res.status(203).end()
 		}
-
 		User.findOne({ username: req.body.recipient }, function (err, person) {
 			if (err) return handleError(err);
 			if (person) {
@@ -21,24 +20,36 @@ router.post(
 					{ $and : [ { 'sender' : req.user.username }, { 'recipient' : req.body.recipient } ] }
 				]}, function (err, msgArray) {
 					if (err) return handleError(err)
-					/* for (message in msgArray) {
-						messages.push(msgArray[message]);
-					} */
-					/* res.render('chat.ejs', {
-						person   : person,  // profile you are watching now
-						user     : user, // logged in user
-						liked    : (likes.indexOf(person.local.login) > -1) ? "Unlike" : "Like",
-						likedYou : (person.local.likes.indexOf(user.local.login) > -1) ? "True" : "False",
-						chats    : messages
-					}); */
 					tracer.info(msgArray)
 					res.json(msgArray)
-				});
+				})
 			}
 			else {
-				res.status(203).end()  // user not found
+				res.status(203).end()
 			}
-		});
+		})
+	}
+)
+
+router.post(
+	'/message',
+	function (req, res, next) {
+		console.log("MSG RESPONSE", req.body, req.user)
+		if (req.user.username === req.body.recipient) {
+			console.log("DSASASAS")
+			res.status(203).end()
+		}
+		const newMessage = new Chat({
+			sender: req.user.username,
+			recipient: req.body.recipient,
+			message: req.body.msg
+		})
+		newMessage.save(function(err) {
+			if (err) {
+				return res.status(203).json(err)
+			}
+			res.json({msg: "zbs"})
+		})
 	}
 )
 

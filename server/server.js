@@ -7,6 +7,7 @@ const MongoStore = require('connect-mongo')(session)
 const passport = require('./passport')
 const tracer = require('tracer').colorConsole()
 const socket = require('socket.io')
+const indexSockets = require('./sockets/index')
 const app = express()
 const PORT = 5000
 // Route requires
@@ -48,13 +49,5 @@ const server = app.listen(PORT, () => {
 io = socket(server);
 
 io.on('connection', (socket) => {
-	console.log("Hello socket", socket.id);
-	socket.on('chat message', function(msg){
-		console.log("MESSSSAGE", msg)
-		socket.emit('your message', msg);
-		socket.broadcast.emit('chat message', msg);
-	});
-	socket.on('disconnect', function(){
-		console.log('user disconnected');
-	});
+	indexSockets(socket)
 });

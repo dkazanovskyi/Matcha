@@ -24,3 +24,21 @@ export const fecthChat = function * (action) {
 		yield put(ChatTypes.fetchChatFailure())
 	}
 }
+
+export const saveMsg = function * (action) {
+	try {
+		const response = yield call(Api.postForm, '/chat/message', action.payload)
+		if (response.status === 200) {
+			console.log("Success fetch")
+		}
+		else {
+			let msg = "response.data.message"
+			let desc = 'An attempt to contact the database resulted in an error. Try again.\n'
+			showNotification('error', msg, desc, ()=>{}, 2)
+		}
+	} catch (error){
+		let msg = "API error"
+		let desc = 'An attempt to contact the API resulted in an error. Try again.\n'+error
+		showNotification('error', msg, desc, ()=>{}, 2)
+	}
+}

@@ -44,8 +44,9 @@ class ChatPage extends React.Component {
 		}
 		let messages = this.state.messages
 		messages.push(msgItem)
-		console.log("MESSSAGES---------", messages, this.state.messages)
-		/* this.setState({messages: messages}) */
+		this.setState({messages: messages})
+		console.log("MESSSAGES---------", this.state.messages)
+		this.panel.scrollTo(0, this.panel.scrollHeight)
 	}
 
 	componentDidMount() {
@@ -54,12 +55,18 @@ class ChatPage extends React.Component {
 			sender: this.props.sender
 		}, this.initMessageHistory)
 		this.panel.scrollTo(0, this.panel.scrollHeight)
+		socket.on('your message', this.updateMessageHistory)
+		socket.on('chat message', this.updateMessageHistory)
 	}
 
 	onSubmit = () => {
 		console.log("DOEORO", this.input.value)
 		socket.emit('chat message', { msg: this.input.value,
 			sender: this.props.sender});
+		this.props.saveMsg({
+			recipient: this.props.match.params.user,
+			msg: this.input.value
+		})
 		this.refs.input.clear()
 	}
 
@@ -67,8 +74,7 @@ class ChatPage extends React.Component {
 		console.log("MESSAGES", this.state.messages)
 		
 		
-		socket.on('your message', this.updateMessageHistory)
-		socket.on('chat message', this.updateMessageHistory);
+		
 		return (
 			<div>
 			<Card  title="Forgot" >
@@ -120,7 +126,8 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = dispatch => {
 	return {
-		fetchChat: (payload, initMessageHistory) => dispatch(ChatActions.fetchChatRequest(payload, initMessageHistory))
+		fetchChat: (payload, initMessageHistory) => dispatch(ChatActions.fetchChatRequest(payload, initMessageHistory)),
+		saveMsg: (payload) => dispatch(ChatActions.saveMsg(payload)),
 	}
 }
 
