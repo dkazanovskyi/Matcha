@@ -11,6 +11,39 @@
   const RadioGroup = Radio.Group
   
   class Profile extends React.Component {
+    state = {
+      fileListProfile: [],
+      fileListExtra: []
+    }
+  
+    handleChangeProfilePicture = (info) => {
+      let fileListProfile = info.fileList
+  
+      // 3. Filter successfully uploaded files according to response from server
+      fileListProfile = fileListProfile.filter((file) => {
+        if (file.response) {
+          return file.response.status === 'success'
+        }
+        return true
+      })
+  
+      this.setState({ fileListProfile })
+    }
+
+    handleChangeExtraPhotos = (info) => {
+      let fileListExtra = info.fileList
+
+      fileListExtra = fileListExtra.slice(-4)
+      fileListExtra = fileListExtra.filter((file) => {
+        if (file.response) {
+          console.log(file.response)
+          return file.response.status === 'success'
+        }
+        return true
+      })
+      this.setState({ fileListExtra })
+    }
+
     handleSubmit = (e) => {
       e.preventDefault()
       console.log(this.props.form.getFieldsValue())
@@ -23,7 +56,6 @@
   
     normFile = (e) => {
       console.log('Upload event:', e)
-      if (Array.isArray(e) && e.length > 1) return
       if (Array.isArray(e)) {
         return e
       }
@@ -83,7 +115,6 @@
           <FormItem
             {...formItemLayout}
               label="Interests"
-              hasFeedback
             >
               {getFieldDecorator('tags', {
                 rules: [
@@ -95,28 +126,20 @@
                 <TagsInput getTags={this.getTags} />
               )}
           </FormItem>
-         
-          <FormItem
-            {...formItemLayout}
-            label="Rate"
-          >
-            {getFieldDecorator('rate', {
-              initialValue: 3.5,
-            })(
-              <Rate />
-            )}
-          </FormItem>
   
           <FormItem
             {...formItemLayout}
             label="Upload profile photo"
           >
             {getFieldDecorator('upload', {
-              valuePropName: 'fileList',
+              valuePropName: 'fileListProfile',
               getValueFromEvent: this.normFile,
             })(
-              <Upload name="logo" action="/upload.do" listType="picture" accept="image/*">
-                <Button>
+              <Upload
+                onChange={this.handleChangeProfilePicture} name="avatar"
+                fileList={this.state.fileListProfile}
+                action="/image-upload/profile" listType="picture" accept="image/*">
+                <Button disabled={this.state.fileListProfile.length > 0 }>
                   <Icon type="upload" /> Click to upload
                 </Button>
               </Upload>
@@ -129,15 +152,17 @@
           >
             <div className="dropbox">
               {getFieldDecorator('dragger', {
-                valuePropName: 'fileList',
+                valuePropName: 'fileListExtra',
                 getValueFromEvent: this.normFile,
               })(
-                <Upload.Dragger name="files" action="/upload.do" accept="image/*">
+                <Upload.Dragger onChange={this.handleChangeExtraPhotos}
+                  fileList={this.state.fileListExtra}
+                  name="photos" action="/image-upload/photos" accept="image/*">
                   <p className="ant-upload-drag-icon">
                     <Icon type="inbox" />
                   </p>
                   <p className="ant-upload-text">Click or drag file to this area to upload</p>
-                  <p className="ant-upload-hint">Support for a single or bulk upload.</p>
+                  <p className="ant-upload-hint">Support for a single or bulk upload. Maximum 4 photos</p>
                 </Upload.Dragger>
               )}
             </div>
