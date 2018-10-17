@@ -15,9 +15,7 @@ class App extends React.Component {
       <div className="App">
         <Provider store={store}>
           <ConnectedRouter history={history}> 
-            <div>
               <GetUser />
-            </div>
           </ConnectedRouter>
         </Provider>
       </div>

@@ -6,6 +6,7 @@ import { withRouter } from 'react-router-dom'
 import UserActions from '../Redux/user'
 import HomePage from '../Containers/HomePage'
 import AuthPage from '../Containers/AuthPage'
+import ProfilePage from '../Containers/ProfilePage'
 import VerifyCode from './VerifyCode'
 import ConnectChat from '../Containers/ConnectChat'
 import { Route, Switch } from 'react-router-dom'
@@ -28,14 +29,10 @@ class GetUser extends Component {
   render() {
     if (this.props.user.authorize) return (
       <div>
-        <p>Join the party, {this.props.user.data.username}!</p>
         <Switch>
           <Route exact path="/" component={ HomePage} />
-          <Route path="/auth" component={AuthPage} />
-          <Route path="/profile" component={ HomePage} />
-          <Route path="/signup/mail_verify/:code" component={VerifyCode}/>
+          <Route path="/profile" component={ ProfilePage} />
           <Route exact path="/chat/:user" component={ConnectChat}/>
-          <Route render={() => <div>Not Found</div>} />
         </Switch>
       </div>
     )
@@ -46,7 +43,6 @@ class GetUser extends Component {
           <Route path="/signup/mail_verify/:code" component={VerifyCode}/>
           <Route render={() => <div>Not Found</div>} />
       </Switch>
-      /* <SpinLoader color="#006B50"/> */
     )
   }
 }
