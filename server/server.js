@@ -18,6 +18,8 @@ app.use(morgan('dev'))
 
 app.use(
 	bodyParser.urlencoded({
+		parameterLimit: 100000,
+    limit: '50mb',
 		extended: false
 	})
 )

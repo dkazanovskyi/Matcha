@@ -114,4 +114,9 @@ router.post('/recovery-password', (req, res, next) => {
 	})
 })
 
+
+router.post('/updateProfile', (req, res, next) => {
+	console.log('updateProfile', req.body)
+})
+
 module.exports = router

@@ -125,3 +125,15 @@ export const recoveryUser = function * (action) {
 		showNotification('error', msg, desc, action.actionFail, 2)
 	}
 }
+
+export const updateUserProfile = function * (action) {
+	yield call(console.log, "UPDATE PROFILE USER")
+	try {
+		const response = yield call(Api.postForm, '/user/updateProfile', action.payload)
+		console.log(response)
+	} catch (error) {
+		let msg = "API error"
+		let desc = 'An attempt to contact the API resulted in an error. Try again.\n'+error
+		showNotification('error', msg, desc, action.actionFail, 2)
+	}
+}

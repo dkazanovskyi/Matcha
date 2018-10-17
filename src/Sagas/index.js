@@ -7,7 +7,14 @@ import { ChatTypes } from '../Redux/chat'
 
 /* ------------- Sagas ------------- */
 
-import { createUser, registerUser, verifyCode, logout, forgotUser, recoveryUser } from './user'
+import {
+	createUser,
+	registerUser,
+	verifyCode,
+	logout,
+	forgotUser,
+	recoveryUser,
+	updateUserProfile } from './user'
 import { sendRoute } from './router'
 import { fecthChat, saveMsg } from './chat'
 
@@ -20,6 +27,7 @@ export default function * root () {
 		takeEvery(UserTypes.LOGOUT_REQUEST, logout),
 		takeEvery(UserTypes.FORGOT_USER_REQUEST, forgotUser),
 		takeEvery(UserTypes.RECOVERY_USER_REQUEST, recoveryUser),
+		takeEvery(UserTypes.UPDATE_USER_PROFILE_REQUEST, updateUserProfile),
 		takeEvery(ChatTypes.FETCH_CHAT_REQUEST, fecthChat),
 		takeEvery(ChatTypes.SAVE_MSG, saveMsg),
 	])

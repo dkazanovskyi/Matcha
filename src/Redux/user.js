@@ -12,6 +12,9 @@ const { Types, Creators } = createActions({
 	logoutRequest: null,
 	forgotUserRequest: ['payload', 'actionSuccess', 'actionFail'],
 	recoveryUserRequest: ['payload', 'actionSuccess', 'actionFail'],
+	updateUserProfileRequest: ['payload', 'actionSuccess', 'actionFail'],
+	updateUserProfileSuccess: ['payload'],
+	updateUserProfileFailure: null
 })
 
 export const UserTypes = Types
@@ -48,5 +51,5 @@ export const createUserFailure = (state, action) => {
 export const UserReducer = createReducer(INITIAL_STATE, {
 	[Types.CREATE_USER_SUCCESS]: createUserSuccess,
 	[Types.CREATE_USER_REQUEST]: createUserRequest,
-	[Types.CREATE_USER_FAILURE]: createUserFailure,
+	[Types.CREATE_USER_FAILURE]: createUserFailure
 })

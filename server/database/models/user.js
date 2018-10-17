@@ -12,7 +12,11 @@ const userSchema = new Schema({
 	firstname: { type: String, unique: false, required: false },
 	password: { type: String, unique: false, required: false },
 	verifStatus: {type: Boolean, unique: false, required: false},
-	
+	profileImage: { type: String, unique: false, required: false },
+	extraImages: { type: Array, unique: false, required: false },
+	gender: { type: String, unique: false, required: false },
+	sexualPreferences: { type: String, unique: false, required: false },
+	interests: { type: String, unique: false, required: false }
 
 })
 

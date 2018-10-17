@@ -29,7 +29,6 @@ class GetUser extends Component {
   render() {
     if (this.props.user.authorize) return (
       <div>
-        <p>Join the party, {this.props.user.data.username}!</p>
         <Switch>
           <Route exact path="/" component={ HomePage} />
           <Route path="/profile" component={ ProfilePage} />

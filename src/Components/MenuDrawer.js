@@ -3,7 +3,7 @@ import { Layout, Menu, Icon } from 'antd'
 import { NavLink } from 'react-router-dom'
 import { connect } from 'react-redux'
 import UserActions from '../Redux/user'
-const { Sider } = Layout
+const { Sider, Content } = Layout
 
 class MenuDrawer extends Component {
   state = {}
@@ -41,7 +41,11 @@ class MenuDrawer extends Component {
             </Menu.Item>
           </Menu>
         </Sider>
-        {this.props.children}
+        <Layout style={{ padding: '24px' }}>
+          <Content style={{ background: '#fff', padding: 24, margin: 0, minHeight: 280 }}>
+            {this.props.children}
+          </Content>
+        </Layout>
       </Layout>
     )
       else 
@@ -62,7 +66,11 @@ class MenuDrawer extends Component {
               </Menu.Item>
             </Menu>
           </Sider>
-          {this.props.children}
+          <Layout style={{ padding: '24px' }}>
+            <Content style={{ background: '#fff', padding: 24, margin: 0, minHeight: 280 }}>
+              {this.props.children}
+            </Content>
+          </Layout>
         </Layout>)
   }
 }
