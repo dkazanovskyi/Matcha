@@ -30,8 +30,8 @@ router.post(
             res.json(target_path)
         })
         src.on('error', function(err) { 
-            fs.unlink(target_path)
-            res.status(400)
+            fs.unlink(tmp_path)
+            res.status(403)
         })
     }
 )

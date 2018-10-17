@@ -9,6 +9,7 @@ const tracer = require('tracer').colorConsole()
 const socket = require('socket.io')
 const indexSockets = require('./sockets/index')
 const app = express()
+const path = require('path')
 const PORT = 5000
 // Route requires
 
@@ -46,6 +47,11 @@ require('./routes/index')(app)
 // Starting Server 
 const server = app.listen(PORT, () => {
 	tracer.info(`App listening on PORT: ${PORT}`)
+})
+
+app.get("/uploads/:id", (req, res) => {
+	console.log('route uploads')
+  res.sendFile(path.join(__dirname, "./uploads/"))
 })
 
 io = socket(server);

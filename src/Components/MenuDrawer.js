@@ -19,7 +19,7 @@ class MenuDrawer extends Component {
       <Layout style={{ minHeight: '100vh' }}>
         <Sider>
           <div className="logo" />
-          <Menu onClick={this.onClick} theme="dark" defaultSelectedKeys={['1']} mode="inline">
+          <Menu onClick={this.onClick} theme="dark" mode="inline">
             <Menu.Item key="1">
               <Icon type="rocket" />
               <span>Profile</span>
