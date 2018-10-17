@@ -9,6 +9,7 @@ router.post(
 		passport.authenticate('local', (err, user, info) => {
 			if (err) tracer.error("Login error:", err)
 			if (!user) {
+				console.log(user)
 				res.status(203)
 				res.json(info)
 			} else {

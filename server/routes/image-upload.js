@@ -16,6 +16,7 @@ router.post(
              stored in the variable "originalname". **/
         var target_path = 'uploads/' + req.file.originalname //TODO: add atributes according to current user
 
+        console.log(req)
         /** A better way to copy the uploaded file. **/
         var src = fs.createReadStream(tmp_path)
         var dest = fs.createWriteStream(target_path)

@@ -1,14 +1,11 @@
   import {
-      Form, Select, InputNumber, Switch, Radio,
-      Slider, Button, Upload, Icon, Rate,
+      Form, Select, Button, Upload, Icon
   } from 'antd'
   import React from 'react'
   import TagsInput from '../Components/TagsInput'
 
   const FormItem = Form.Item
   const Option = Select.Option
-  const RadioButton = Radio.Button
-  const RadioGroup = Radio.Group
   
   class Profile extends React.Component {
     state = {
@@ -19,13 +16,9 @@
     handleChangeProfilePicture = (info) => {
       let fileListProfile = info.fileList
   
+      fileListProfile = fileListProfile.slice(-1)
       // 3. Filter successfully uploaded files according to response from server
-      fileListProfile = fileListProfile.filter((file) => {
-        if (file.response) {
-          return file.response.status === 'success'
-        }
-        return true
-      })
+      fileListProfile = fileListProfile.filter((file) => file.response || true)
   
       this.setState({ fileListProfile })
     }
@@ -34,13 +27,8 @@
       let fileListExtra = info.fileList
 
       fileListExtra = fileListExtra.slice(-4)
-      fileListExtra = fileListExtra.filter((file) => {
-        if (file.response) {
-          console.log(file.response)
-          return file.response.status === 'success'
-        }
-        return true
-      })
+      fileListExtra = fileListExtra.filter((file) => file.response || true)
+
       this.setState({ fileListExtra })
     }
 
