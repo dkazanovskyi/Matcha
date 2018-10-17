@@ -6,6 +6,8 @@ const dbConnection = require('./database')
 const MongoStore = require('connect-mongo')(session)
 const passport = require('./passport')
 const tracer = require('tracer').colorConsole()
+const socket = require('socket.io')
+const indexSockets = require('./sockets/index')
 const app = express()
 const PORT = 5000
 // Route requires
@@ -40,6 +42,12 @@ app.use(passport.session()) // calls the deserializeUser
 require('./routes/index')(app)
 
 // Starting Server 
-app.listen(PORT, () => {
+const server = app.listen(PORT, () => {
 	tracer.info(`App listening on PORT: ${PORT}`)
 })
+
+io = socket(server);
+
+io.on('connection', (socket) => {
+	indexSockets(socket)
+});

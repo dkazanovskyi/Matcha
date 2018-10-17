@@ -17,7 +17,7 @@ router.post('/', (req, res) => {
 	})
 	
 	const newUser = new User({
-			username: path(['body', 'username'], req),
+			username: path(['body', 'username'], req).toLowerCase(),
 			email: req.body.email,
 			lastname: req.body.lastname,
 			firstname: req.body.firstname,

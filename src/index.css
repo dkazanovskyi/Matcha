@@ -3,3 +3,22 @@ body {
   padding: 0;
   font-family: sans-serif;
 }
+
+.chat {
+  flex: 1;
+  max-height: 500px;
+  min-width: 140px;
+  overflow: auto;
+}
+
+.rce-mbox-time {
+  bottom: -11px !important;
+}
+
+.rce-mbox {
+  padding: 6px 9px 12px 9px !important;
+}
+
+.ant-menu-item {
+  text-align: left;
+}

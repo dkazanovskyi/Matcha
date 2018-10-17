@@ -6,10 +6,12 @@ const strategy = new LocalStrategy(
 		usernameField: 'username' // not necessary, DEFAULT
 	},
 	function(username, password, done) {
-		User.findOne({ username: username }, (err, user) => {
+		User.findOne({ username: username.toLowerCase() }, (err, user) => {
 			if (err) {
 				return done(err)
 			}
+			
+			console.log(user)
 			if (!user) {
 				return done(null, false, { message: 'Incorrect username' })
 			}
