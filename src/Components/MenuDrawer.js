@@ -38,6 +38,11 @@ class MenuDrawer extends Component {
               <span>Recomended</span>
               <NavLink to="/" />
             </Menu.Item>
+            <Menu.Item key="4">
+              <Icon type="mail" />
+              <span>Chats</span>
+              <NavLink to="/chats" />
+            </Menu.Item>
             <Menu.Item key="7">
               <Icon type="form" />
               <span>Logout</span>
@@ -70,9 +75,7 @@ class MenuDrawer extends Component {
             </Menu>
           </Sider>
           <Layout style={{ padding: '24px' }}>
-            <Content style={{ background: '#fff', padding: 24, margin: 0, minHeight: 280 }}>
-              {this.props.children}
-            </Content>
+            {this.props.children}
           </Layout>
         </Layout>)
   }

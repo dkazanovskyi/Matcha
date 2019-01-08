@@ -14,7 +14,6 @@ router.post(
 		User.findOne({ username: req.body.recipient }, function (err, person) {
 			if (err) return handleError(err);
 			if (person) {
-				console.log("PERSON", person)
 				Chat.find({ $or : [
 					{ $and : [ { 'sender' : req.body.recipient }, { 'recipient' : req.user.username } ] },
 					{ $and : [ { 'sender' : req.user.username }, { 'recipient' : req.body.recipient } ] }

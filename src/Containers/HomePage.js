@@ -5,12 +5,6 @@ import UserActions from '../Redux/user'
 
 class HomePage extends Component {
   state = {}
-  onClick = (info) => {
-    if (info.key === "7") {
-      console.log('key logout clicked')
-      this.props.logout()
-    }
-  }
 
   render() {
     return (<MenuDrawer/>)
@@ -21,11 +15,4 @@ const mapStateToProps = (state) => ({
 	user: state.user,
 })
 
-
-const mapDispatchToProps = dispatch => {
-	return {
-		logout: () => dispatch(UserActions.logoutRequest())
-	}
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(HomePage)
+export default connect(mapStateToProps, null)(HomePage)

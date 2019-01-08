@@ -5,6 +5,7 @@ import LoginForm from '../Components/LoginForm.js'
 import ForgotForm from '../Components/ForgotForm.js'
 import RecoveryForm from '../Components/RecoveryForm'
 import { Route, Switch, Link } from 'react-router-dom'
+import MenuDrawer from '../Components/MenuDrawer'
 
 const { Header, Content, Footer } = Layout
 
@@ -15,24 +16,26 @@ class AuthPage extends React.Component {
   }
   render() {
     return (
-      <Layout>
-        <Content style={{ padding: '50px 0', backgroundColor: '#fff' }}>
-          <Row>
-            <Col span={12} offset={6}>
-              <Switch>
-                <Route exact path="/auth/register" component={RegistrationForm} />
-                <Route exact path="/auth/login" component={LoginForm} />
-                <Route exact path="/auth/forgot" component={ForgotForm} />
-                <Route exact path="/auth/recovery/:code" component={RecoveryForm}/>
-                <Route render={() => <div>Not Found</div>} />
-              </Switch>
-            </Col>
-          </Row>
-        </Content>
-        <Footer theme="dark" style={{ textAlign: 'center' }}>
-          Matcha Project ©2018 Created by @drenkas & @dkazanov
-        </Footer>
-      </Layout>
+      <MenuDrawer>
+        <Layout>
+          <Content style={{ padding: '50px 0', backgroundColor: '#fff' }}>
+            <Row>
+              <Col span={12} offset={6}>
+                <Switch>
+                  <Route exact path="/auth/register" component={RegistrationForm} />
+                  <Route exact path="/auth/login" component={LoginForm} />
+                  <Route exact path="/auth/forgot" component={ForgotForm} />
+                  <Route exact path="/auth/recovery/:code" component={RecoveryForm}/>
+                  <Route render={() => <div>Not Found</div>} />
+                </Switch>
+              </Col>
+            </Row>
+          </Content>
+          <Footer theme="dark" style={{ textAlign: 'center' }}>
+            Matcha Project ©2018 Created by @drenkas & @dkazanov
+          </Footer>
+        </Layout>
+      </MenuDrawer>
     )
   }
 }
