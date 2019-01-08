@@ -1,0 +1,2 @@
+"D:\Mongo\bin\mongod.exe" --dbpath="d:\data\db"
+"D:\Mongo\bin\mongo.exe"
